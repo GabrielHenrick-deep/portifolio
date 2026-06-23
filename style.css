@@ -5,9 +5,10 @@
 }
 
 :root {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #12121a;
-    --bg-card: #1a1a26;
+    --bg-primary: rgba(10, 10, 15, 0.92);
+    --bg-secondary: rgba(18, 18, 26, 0.92);
+    --bg-card: rgba(26, 26, 38, 0.85);
+    --bg-card-hover: #222233;
     --bg-card-hover: #222233;
     --text-primary: #e8e8ed;
     --text-secondary: #9090a0;
@@ -216,18 +217,18 @@ body {
     left: 0;
     width: 100%;
     height: 200px;
-    background: linear-gradient(to top, var(--bg-primary), transparent);
+    background: linear-gradient(to top, rgba(10, 10, 15, 0.92), transparent);
     pointer-events: none;
     z-index: 1;
 }
 
 #three-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
     pointer-events: none;
 }
 
@@ -437,7 +438,7 @@ body {
     height: 18px;
     border-radius: 50%;
     background: var(--accent);
-    border: 3px solid var(--bg-secondary);
+    border: 3px solid #12121a;
     box-shadow: 0 0 0 2px var(--accent);
 }
 
@@ -610,43 +611,29 @@ body {
     margin-bottom: 40px;
 }
 
-.contact-links {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-
-.contact-card {
-    display: flex;
+.contact-email {
+    display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px 24px;
+    gap: 16px;
+    padding: 20px 36px;
     background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    border: 1px solid var(--accent);
+    border-radius: 14px;
     text-decoration: none;
     color: var(--text-primary);
-    transition: all 0.2s;
+    font-size: 1.15rem;
+    font-weight: 500;
+    transition: all 0.3s;
 }
 
-.contact-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px var(--accent-glow);
+.contact-email:hover {
+    background: rgba(108, 92, 231, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px var(--accent-glow);
 }
 
-.contact-icon {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(108, 92, 231, 0.1);
-    border-radius: 8px;
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--accent-light);
+.contact-email-icon {
+    font-size: 1.5rem;
 }
 
 /* Footer */
@@ -748,13 +735,11 @@ body {
         padding: 18px;
     }
 
-    .contact-links {
-        flex-direction: column;
-    }
-
-    .contact-card {
+    .contact-email {
         width: 100%;
         justify-content: center;
+        font-size: 1rem;
+        padding: 16px 24px;
     }
 }
 

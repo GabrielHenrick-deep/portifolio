@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gabriel Henrick | Portfólio</title>
+    <title>Gabriel Henrick | Full Stack & VR Developer</title>
+    <meta name="description" content="Portfólio de Gabriel Henrick — Engenharia da Computação UFU. Full Stack (Laravel, TypeScript), VR/XR (Unity, Meta SDK) e DevOps (Docker, Linux)." />
+    <meta name="keywords" content="Gabriel Henrick, Full Stack, VR Developer, Laravel, TypeScript, Unity, Docker, DevOps, UFU" />
+    <meta property="og:title" content="Gabriel Henrick | Full Stack & VR Developer" />
+    <meta property="og:description" content="Engenharia da Computação UFU — do backend ao metaverso." />
+    <meta property="og:type" content="website" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
@@ -17,11 +22,14 @@
     </script>
 </head>
 <body>
+    <div id="progress-bar"></div>
+
     <nav class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo"><img src="icone.png" alt="GH" class="logo-img" /></a>
             <ul class="nav-links">
                 <li><a href="#about">Sobre</a></li>
+                <li><a href="#experience">Experiência</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projetos</a></li>
                 <li><a href="#contact">Contato</a></li>
@@ -29,6 +37,8 @@
             <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
         </div>
     </nav>
+
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Voltar ao topo">&uarr;</a>
 
     <section class="hero">
         <div id="three-container"></div>
@@ -39,7 +49,7 @@
                 Engenharia da Computação | <span class="accent">UFU</span>
             </p>
             <p class="hero-desc">
-                Construindo pontes entre o físico e o digital — do backend ao metaverso.
+                <span class="typing-text"></span><span class="cursor">|</span>
             </p>
             <div class="hero-actions">
                 <a href="#projects" class="btn btn-primary">Ver Projetos</a>
@@ -92,7 +102,40 @@
         </div>
     </section>
 
-    <section id="skills" class="section section-dark">
+    <section id="experience" class="section section-dark">
+        <div class="container">
+            <span class="section-label">// Experiência</span>
+            <h2 class="section-title">Formação & Trajetória</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023 — 2027</span>
+                        <h3>Engenharia da Computação</h3>
+                        <p>Universidade Federal de Uberlândia (UFU)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025 — Presente</span>
+                        <h3>Pesquisador — GRVA UFU</h3>
+                        <p>Grupo de Realidade Virtual e Aumentada. Desenvolvimento de aplicações VR/XR com Unity e Meta SDK.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024 — Presente</span>
+                        <h3>Full Stack Developer</h3>
+                        <p>Desenvolvimento web com Laravel e TypeScript. Infraestrutura com Docker e servidores Linux.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
         <div class="container">
             <span class="section-label">// Skills</span>
             <h2 class="section-title">Tecnologias & Ferramentas</h2>
@@ -141,7 +184,7 @@
         </div>
     </section>
 
-    <section id="projects" class="section">
+    <section id="projects" class="section section-dark">
         <div class="container">
             <span class="section-label">// Projetos</span>
             <h2 class="section-title">Trabalhos Recentes</h2>
@@ -155,7 +198,7 @@
                         </div>
                     </div>
                     <h3>GRVA Site — Backend</h3>
-                    <p>Backend do site do Grupo de Realidade Virtual e Aumentada da UFU. API RESTful com Laravel para gerenciamento de conteúdo e integração com o frontend.</p>
+                    <p>API RESTful do site do Grupo de Realidade Virtual e Aumentada da UFU. Gerenciamento de conteúdo com Laravel.</p>
                     <a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
                 </div>
                 <div class="project-card">
@@ -167,7 +210,7 @@
                         </div>
                     </div>
                     <h3>GRVA Site — Frontend</h3>
-                    <p>Frontend do site do GRVA UFU. Interface moderna e responsiva construída com TypeScript e React para apresentação do grupo de pesquisa.</p>
+                    <p>Interface moderna e responsiva do GRVA UFU. Construída com TypeScript e React para o grupo de pesquisa.</p>
                     <a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
                 </div>
                 <div class="project-card">
@@ -179,7 +222,7 @@
                         </div>
                     </div>
                     <h3>ParkingAI</h3>
-                    <p>Sistema inteligente de estacionamento utilizando visão computacional e machine learning para detecção e gerenciamento de vagas.</p>
+                    <p>Sistema inteligente de estacionamento com visão computacional e machine learning para detecção e gerenciamento de vagas.</p>
                     <a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
                 </div>
                 <div class="project-card">
@@ -191,7 +234,7 @@
                         </div>
                     </div>
                     <h3>HackatonUFU</h3>
-                    <p>Projeto desenvolvido durante hackathon na UFU. Aplicação web com TypeScript para solução de desafio acadêmico.</p>
+                    <p>Aplicação web desenvolvida durante hackathon na UFU. Solução de desafio acadêmico com TypeScript.</p>
                     <a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
                 </div>
                 <div class="project-card">
@@ -203,14 +246,14 @@
                         </div>
                     </div>
                     <h3>CLI POMODORO</h3>
-                    <p>Ferramenta de produtividade estilo Pomodoro diretamente no terminal. Desenvolvida em C para eficiência máxima.</p>
+                    <p>Ferramenta de produtividade Pomodoro direto no terminal. Desenvolvida em C para máxima eficiência.</p>
                     <a href="https://github.com/GabrielHenrick-deep/CLI_POMODORO" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section section-dark">
+    <section id="contact" class="section">
         <div class="container">
             <span class="section-label">// Contato</span>
             <h2 class="section-title">Vamos conversar</h2>
@@ -237,8 +280,8 @@
 
     <footer class="footer">
         <div class="container footer-content">
-            <p>&copy; 2026 Gabriel Henrick. Feito com &#9829; e código.</p>
-            <a href="#" class="footer-top">&uarr; Topo</a>
+            <p>&copy; 2026 Gabriel Henrick. Feito com &#9829; e c&oacute;digo.</p>
+            <p class="footer-quote">construindo pontes entre o físico e o digital</p>
         </div>
     </footer>
 

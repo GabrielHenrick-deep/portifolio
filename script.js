@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.skill-category, .project-card, .stat, .contact-email, .timeline-item').forEach(el => {
+    document.querySelectorAll('.skill-category, .project-card, .stat, .contact-card, .timeline-item').forEach(el => {
         el.classList.add('reveal');
         observer.observe(el);
     });

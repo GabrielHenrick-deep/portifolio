@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabriel Henrick | Portfólio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="icone.ico" />
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo"><img src="icone.png" alt="GH" class="logo-img" /></a>
+            <ul class="nav-links">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projetos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <button class="mobile-toggle" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div id="three-container"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">Full Stack & VR Developer</div>
+            <h1>Gabriel Henrick</h1>
+            <p class="hero-subtitle">
+                Engenharia da Computação | <span class="accent">UFU</span>
+            </p>
+            <p class="hero-desc">
+                Construindo pontes entre o físico e o digital — do backend ao metaverso.
+            </p>
+            <div class="hero-actions">
+                <a href="#projects" class="btn btn-primary">Ver Projetos</a>
+                <a href="#contact" class="btn btn-outline">Contato</a>
+            </div>
+            <div class="hero-tech">
+                <span>Laravel</span><span>TypeScript</span><span>Unity</span><span>Docker</span><span>Linux</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <span class="section-label">// Sobre</span>
+            <h2 class="section-title">Quem sou</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Sou <strong>Gabriel Henrick</strong>, estudante de Engenharia da Computação na
+                        Universidade Federal de Uberlândia (<strong>UFU</strong>) e desenvolvedor focado em
+                        transformar ideias em soluções reais.
+                    </p>
+                    <p>
+                        Atualmente trabalho com desenvolvimento web <strong>Full Stack</strong> usando
+                        <strong>Laravel</strong> e <strong>TypeScript</strong>, e também atuo no desenvolvimento
+                        <strong>VR/XR</strong> com <strong>Unity</strong> e <strong>Meta SDK</strong> —
+                        criando experiências imersivas que misturam o mundo real com o virtual.
+                    </p>
+                    <p>
+                        Tenho forte experiência com infraestrutura moderna:
+                        <strong>Docker</strong>, servidores <strong>Linux</strong> e práticas de
+                        <strong>DevOps</strong> para entregar aplicações escaláveis e resilientes.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">Full Stack</span>
+                        <span class="stat-label">Laravel & TS</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">VR/XR</span>
+                        <span class="stat-label">Unity & Meta SDK</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">DevOps</span>
+                        <span class="stat-label">Docker & Linux</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section section-dark">
+        <div class="container">
+            <span class="section-label">// Skills</span>
+            <h2 class="section-title">Tecnologias & Ferramentas</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Backend</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">REST APIs</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Tailwind</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>VR/XR</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Unity</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Meta SDK</span>
+                        <span class="skill-tag">XR Interaction</span>
+                        <span class="skill-tag">OpenXR</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>DevOps & Infra</h3>
+                    <div class="skill-items">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Nginx</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <span class="section-label">// Projetos</span>
+            <h2 class="section-title">Trabalhos Recentes</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-icon">&#9733;</span>
+                        <div class="project-langs">
+                            <span>Laravel</span>
+                            <span>PHP</span>
+                        </div>
+                    </div>
+                    <h3>GRVA Site — Backend</h3>
+                    <p>Backend do site do Grupo de Realidade Virtual e Aumentada da UFU. API RESTful com Laravel para gerenciamento de conteúdo e integração com o frontend.</p>
+                    <a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-icon">&#9733;</span>
+                        <div class="project-langs">
+                            <span>TypeScript</span>
+                            <span>React</span>
+                        </div>
+                    </div>
+                    <h3>GRVA Site — Frontend</h3>
+                    <p>Frontend do site do GRVA UFU. Interface moderna e responsiva construída com TypeScript e React para apresentação do grupo de pesquisa.</p>
+                    <a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-icon">&#9733;</span>
+                        <div class="project-langs">
+                            <span>Java</span>
+                            <span>AI</span>
+                        </div>
+                    </div>
+                    <h3>ParkingAI</h3>
+                    <p>Sistema inteligente de estacionamento utilizando visão computacional e machine learning para detecção e gerenciamento de vagas.</p>
+                    <a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-icon">&#9733;</span>
+                        <div class="project-langs">
+                            <span>TypeScript</span>
+                            <span>React</span>
+                        </div>
+                    </div>
+                    <h3>HackatonUFU</h3>
+                    <p>Projeto desenvolvido durante hackathon na UFU. Aplicação web com TypeScript para solução de desafio acadêmico.</p>
+                    <a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-icon">&#9733;</span>
+                        <div class="project-langs">
+                            <span>C</span>
+                            <span>CLI</span>
+                        </div>
+                    </div>
+                    <h3>CLI POMODORO</h3>
+                    <p>Ferramenta de produtividade estilo Pomodoro diretamente no terminal. Desenvolvida em C para eficiência máxima.</p>
+                    <a href="https://github.com/GabrielHenrick-deep/CLI_POMODORO" target="_blank" class="project-link">Ver no GitHub &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section section-dark">
+        <div class="container">
+            <span class="section-label">// Contato</span>
+            <h2 class="section-title">Vamos conversar</h2>
+            <p class="contact-desc">
+                Tem um projeto em mente? Quer discutir VR, DevOps ou trocar uma ideia?
+                Me manda uma mensagem!
+            </p>
+            <div class="contact-links">
+                <a href="https://www.linkedin.com/in/gabriel-henrick-ribeiro-de-sousa-a235a02b9/" target="_blank" class="contact-card">
+                    <span class="contact-icon">in</span>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/GabrielHenrick-deep" target="_blank" class="contact-card">
+                    <span class="contact-icon">GH</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="mailto:gabrielhenrick@example.com" class="contact-card">
+                    <span class="contact-icon">@</span>
+                    <span>Email</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>&copy; 2026 Gabriel Henrick. Feito com &#9829; e código.</p>
+            <a href="#" class="footer-top">&uarr; Topo</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="module" src="scene.js"></script>
+</body>
+</html>

@@ -1,11 +1,21 @@
 import * as THREE from 'three';
 
 const container = document.getElementById('three-container');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let renderer;
+try {
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+} catch (err) {
+    // Sem suporte a WebGL: ativa fallback visual e interrompe a cena
+    document.body.classList.add('no-webgl');
+    throw err;
+}
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
 camera.position.z = 5;
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(container.clientWidth, container.clientHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -413,6 +423,9 @@ scene.add(pulseRing);
 const mouse = { x: 0, y: 0 };
 const target = { x: 0, y: 0 };
 
+// Referência cacheada do buffer de partículas (evita lookup por frame)
+const particlePos = ambientParticles.geometry.attributes.position.array;
+
 document.addEventListener('mousemove', (e) => {
     target.x = (e.clientX / window.innerWidth - 0.5) * 2;
     target.y = (e.clientY / window.innerHeight - 0.5) * 2;
@@ -426,8 +439,10 @@ document.addEventListener('touchmove', (e) => {
     }
 }, { passive: true });
 
+let rafId = null;
+
 function animate() {
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
 
     const elapsed = clock.getElapsedTime();
 
@@ -455,14 +470,13 @@ function animate() {
         s.wireframe.position.y = s.mesh.position.y;
     }
 
-    const pos = ambientParticles.geometry.attributes.position.array;
-    for (let i = 0; i < pos.length / 3; i++) {
-        pos[i * 3 + 1] += ambSpeeds[i] * 0.005;
-        pos[i * 3] += Math.sin(elapsed * 0.3 + ambOffsets[i]) * 0.001;
-        if (pos[i * 3 + 1] > 8) {
-            pos[i * 3 + 1] = -8;
-            pos[i * 3] = (Math.random() - 0.5) * 20;
-            pos[i * 3 + 2] = (Math.random() - 0.5) * 12 - 1;
+    for (let i = 0; i < particlePos.length / 3; i++) {
+        particlePos[i * 3 + 1] += ambSpeeds[i] * 0.005;
+        particlePos[i * 3] += Math.sin(elapsed * 0.3 + ambOffsets[i]) * 0.001;
+        if (particlePos[i * 3 + 1] > 8) {
+            particlePos[i * 3 + 1] = -8;
+            particlePos[i * 3] = (Math.random() - 0.5) * 20;
+            particlePos[i * 3 + 2] = (Math.random() - 0.5) * 12 - 1;
         }
     }
     ambientParticles.geometry.attributes.position.needsUpdate = true;
@@ -480,14 +494,51 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate();
+function startLoop() {
+    if (rafId === null) {
+        clock.start();
+        animate();
+    }
+}
 
+function stopLoop() {
+    if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+        clock.stop();
+    }
+}
+
+if (reducedMotion) {
+    // Movimento reduzido: renderiza um único frame estático
+    renderer.render(scene, camera);
+} else {
+    startLoop();
+
+    // Pausa a renderização quando a aba está oculta (economia de bateria/GPU)
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopLoop();
+        } else {
+            startLoop();
+        }
+    });
+}
+
+// Debounce no resize
+let resizeTimer = null;
 function handleResize() {
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+        if (reducedMotion) {
+            renderer.render(scene, camera);
+        }
+    }, 150);
 }
 
 window.addEventListener('resize', handleResize);

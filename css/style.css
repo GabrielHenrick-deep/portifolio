@@ -9,8 +9,8 @@
     --bg-secondary: rgba(26, 5, 51, 0.55);
     --bg-card: rgba(30, 10, 55, 0.5);
     --bg-card-hover: #2a1045;
-    --text-primary: #f2e9ff;
-    --text-secondary: #b8a6d9;
+    --text-primary: #f5f0ff;
+    --text-secondary: #cec4e6;
     --accent: #ff2e97;
     --accent-light: #00f5ff;
     --accent-glow: rgba(255, 46, 151, 0.18);
@@ -88,7 +88,7 @@ body {
 
 .section-label {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 1.1rem;
     color: var(--accent-light);
     display: block;
     margin-bottom: 8px;
@@ -409,11 +409,11 @@ body {
     border: 1px solid var(--border);
     border-radius: 6px;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
 }
 
-/* About */
+/* About — janela de terminal Linux */
 .about-content {
     display: grid;
     grid-template-columns: 1.5fr 1fr;
@@ -421,14 +421,76 @@ body {
     align-items: start;
 }
 
-.about-text p {
+.terminal {
+    background: rgba(8, 4, 20, 0.9);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 245, 255, 0.06);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.terminal:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 46, 151, 0.15);
+}
+
+.terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: rgba(30, 12, 50, 0.9);
+    border-bottom: 1px solid var(--border);
+}
+
+.terminal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green { background: #28c840; }
+
+.terminal-title {
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
     color: var(--text-secondary);
-    margin-bottom: 16px;
+}
+
+.terminal-body {
+    padding: 20px 24px 24px;
+    font-family: var(--font-mono);
     font-size: 1.05rem;
 }
 
-.about-text strong {
+.terminal-body p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
+
+.terminal-body strong {
+    color: var(--accent-light);
+    font-weight: 500;
+}
+
+.terminal-line {
     color: var(--text-primary);
+}
+
+.terminal-prompt {
+    color: #28c840;
+    text-shadow: 0 0 6px rgba(40, 200, 64, 0.5);
+}
+
+.terminal-cursor {
+    color: var(--accent-light);
+    animation: blink 1s step-end infinite;
 }
 
 .about-stats {
@@ -525,7 +587,7 @@ body {
     border: 1px solid rgba(255, 46, 151, 0.2);
     border-radius: 6px;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     color: var(--accent-light);
     margin-bottom: 12px;
 }
@@ -580,7 +642,7 @@ body {
     border: 1px solid rgba(255, 46, 151, 0.2);
     border-radius: 6px;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     transition: all 0.2s;
 }
@@ -753,7 +815,7 @@ body {
 
 .footer-quote {
     font-family: var(--font-mono);
-    font-size: 0.75rem !important;
+    font-size: 0.9rem !important;
     color: var(--text-secondary);
     opacity: 0.6;
 }
@@ -856,48 +918,67 @@ body {
     }
 }
 
+/* Cursor retrô simples — crosshair pixel com núcleo */
 #retro-cursor {
     position: fixed;
     top: -100px;
     left: -100px;
-    width: 28px;
-    height: 28px;
-    border: 2px solid var(--accent-light);
-    border-radius: 2px;
-    box-shadow: 0 0 10px rgba(0, 245, 255, 0.6), inset 0 0 6px rgba(0, 245, 255, 0.25);
+    width: 18px;
+    height: 18px;
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 3000;
     display: none;
-    transition: border-color 0.15s, box-shadow 0.15s, border-radius 0.15s, width 0.15s, height 0.15s;
+}
+
+#retro-cursor::before,
+#retro-cursor::after {
+    content: '';
+    position: absolute;
+    background: var(--accent-light);
+    box-shadow: 0 0 4px rgba(0, 245, 255, 0.8);
+}
+
+#retro-cursor::before {
+    left: 50%;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+}
+
+#retro-cursor::after {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
 }
 
 #retro-cursor .cursor-core {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
+    box-shadow: 0 0 6px var(--accent);
     transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 #retro-cursor.active {
     display: block;
 }
 
-#retro-cursor.hovering {
-    width: 40px;
-    height: 40px;
-    border-color: var(--accent);
-    box-shadow: 0 0 16px rgba(255, 46, 151, 0.8), inset 0 0 8px rgba(255, 46, 151, 0.3);
-    border-radius: 50%;
+#retro-cursor.hovering::before,
+#retro-cursor.hovering::after {
+    background: var(--accent);
+    box-shadow: 0 0 6px rgba(255, 46, 151, 0.9);
 }
 
 #retro-cursor.pressed {
-    width: 20px;
-    height: 20px;
+    transform: translate(-50%, -50%) scale(0.7);
 }
 
 /* Overlay CRT — scanlines + vinheta */
@@ -945,7 +1026,7 @@ body::after {
 
 .marquee-group span {
     font-family: var(--font-mono);
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     color: var(--text-secondary);
     white-space: nowrap;
     letter-spacing: 0.5px;

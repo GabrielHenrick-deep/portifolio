@@ -158,154 +158,116 @@ function createWavePlane() {
     return { mesh, base };
 }
 
-/* ------------------------------ Headset de VR ------------------------------- */
+/* --------------------------- Virtual Boy (retrô) ---------------------------- */
 
-function createVRHeadset() {
+function createVirtualBoy() {
     const group = new THREE.Group();
 
-    const darkMat = new THREE.MeshPhysicalMaterial({
-        color: 0x16162a,
-        metalness: 0.3,
-        roughness: 0.5,
-    });
-
-    const accentMat = new THREE.MeshPhysicalMaterial({
-        color: 0xff2e97,
+    const blackMat = new THREE.MeshPhysicalMaterial({
+        color: 0x14141c,
         metalness: 0.4,
-        roughness: 0.2,
-        emissive: 0xff2e97,
-        emissiveIntensity: 0.08,
+        roughness: 0.45,
     });
 
-    const glassMat = new THREE.MeshPhysicalMaterial({
-        color: 0x1a1a3e,
-        metalness: 0.8,
-        roughness: 0.05,
-        transparent: true,
-        opacity: 0.7,
-    });
-
-    const ringMat = new THREE.MeshPhysicalMaterial({
-        color: 0x2a2a3e,
-        metalness: 0.6,
+    const redGlowMat = new THREE.MeshPhysicalMaterial({
+        color: 0xff0040,
+        emissive: 0xff0040,
+        emissiveIntensity: 0.9,
+        metalness: 0.2,
         roughness: 0.3,
-    });
-
-    const body = new THREE.Mesh(
-        new THREE.BoxGeometry(2.4, 1.3, 0.9),
-        darkMat
-    );
-
-    const edges = new THREE.EdgesGeometry(body.geometry);
-    const lineMat = new THREE.LineBasicMaterial({
-        color: 0xff2e97,
         transparent: true,
-        opacity: 0.15,
+        opacity: 0.85,
     });
-    body.add(new THREE.LineSegments(edges, lineMat));
-    group.add(body);
 
-    const panel = new THREE.Mesh(
-        new THREE.BoxGeometry(1.8, 0.9, 0.05),
-        accentMat
+    const visor = new THREE.Mesh(
+        new THREE.BoxGeometry(2.2, 1.2, 0.9),
+        blackMat
     );
-    panel.position.z = 0.48;
-    group.add(panel);
+    const visorEdges = new THREE.LineSegments(
+        new THREE.EdgesGeometry(visor.geometry),
+        new THREE.LineBasicMaterial({ color: 0xff0040, transparent: true, opacity: 0.35 })
+    );
+    visor.add(visorEdges);
+    group.add(visor);
 
-    const lensPositions = [-0.45, 0.45];
-    for (const x of lensPositions) {
-        const ring = new THREE.Mesh(
-            new THREE.TorusGeometry(0.28, 0.05, 20, 40),
-            ringMat
+    // Janela frontal vermelha (a "tela" icônica do Virtual Boy)
+    const windowPanel = new THREE.Mesh(
+        new THREE.BoxGeometry(1.9, 0.75, 0.08),
+        redGlowMat
+    );
+    windowPanel.position.z = 0.45;
+    group.add(windowPanel);
+
+    const scanlines = new THREE.Group();
+    for (let i = 0; i < 5; i++) {
+        const line = new THREE.Mesh(
+            new THREE.BoxGeometry(1.9, 0.03, 0.01),
+            new THREE.MeshBasicMaterial({ color: 0x0a0a0f, transparent: true, opacity: 0.6 })
         );
-        ring.position.set(x, 0.05, 0.5);
-        group.add(ring);
+        line.position.set(0, -0.3 + i * 0.15, 0.5);
+        scanlines.add(line);
+    }
+    group.add(scanlines);
 
-        const innerRing = new THREE.Mesh(
-            new THREE.TorusGeometry(0.22, 0.03, 20, 40),
-            new THREE.MeshPhysicalMaterial({
-                color: 0xff2e97,
-                metalness: 0.5,
-                roughness: 0.2,
-                emissive: 0xff2e97,
-                emissiveIntensity: 0.15,
-                transparent: true,
-                opacity: 0.5,
-            })
+    // Oculares (parte de trás, quem usa vê)
+    for (const x of [-0.48, 0.48]) {
+        const eyepiece = new THREE.Mesh(
+            new THREE.CylinderGeometry(0.26, 0.32, 0.35, 24),
+            blackMat
         );
-        innerRing.position.set(x, 0.05, 0.51);
-        group.add(innerRing);
+        eyepiece.rotation.x = Math.PI / 2;
+        eyepiece.position.set(x, 0.1, -0.55);
+        group.add(eyepiece);
 
-        const glass = new THREE.Mesh(
+        const lens = new THREE.Mesh(
             new THREE.CircleGeometry(0.2, 32),
-            glassMat
+            new THREE.MeshBasicMaterial({ color: 0xff0040, transparent: true, opacity: 0.55 })
         );
-        glass.position.set(x, 0.05, 0.52);
-        group.add(glass);
-
-        const glow = new THREE.Mesh(
-            new THREE.CircleGeometry(0.12, 32),
-            new THREE.MeshBasicMaterial({
-                color: 0xff2e97,
-                transparent: true,
-                opacity: 0.08,
-            })
-        );
-        glow.position.set(x, 0.05, 0.53);
-        group.add(glow);
+        lens.rotation.y = Math.PI;
+        lens.position.set(x, 0.1, -0.74);
+        group.add(lens);
     }
 
-    const dotMat = new THREE.MeshPhysicalMaterial({
-        color: 0x1a1a2e,
-        metalness: 0.8,
-        roughness: 0.2,
-    });
-    for (let i = 0; i < 3; i++) {
-        const dot = new THREE.Mesh(
-            new THREE.SphereGeometry(0.025, 8, 8),
-            dotMat
+    // Suporte: coluna + pernas em V com base (como o tripé original)
+    const clamp = new THREE.Mesh(
+        new THREE.BoxGeometry(0.5, 0.25, 0.35),
+        blackMat
+    );
+    clamp.position.set(0, -0.7, 0);
+    group.add(clamp);
+
+    const column = new THREE.Mesh(
+        new THREE.BoxGeometry(0.22, 0.9, 0.22),
+        blackMat
+    );
+    column.position.set(0, -1.25, 0);
+    group.add(column);
+
+    for (const dir of [-1, 1]) {
+        const leg = new THREE.Mesh(
+            new THREE.BoxGeometry(0.16, 0.9, 0.16),
+            blackMat
         );
-        dot.position.set(-0.7 + i * 0.7, -0.35, 0.5);
-        group.add(dot);
+        leg.rotation.z = dir * 0.55;
+        leg.position.set(dir * 0.32, -1.95, 0.25);
+        group.add(leg);
+
+        const backLeg = leg.clone();
+        backLeg.position.set(dir * 0.32, -1.95, -0.25);
+        backLeg.rotation.x = -dir * 0.15;
+        group.add(backLeg);
+
+        const foot = new THREE.Mesh(
+            new THREE.BoxGeometry(0.3, 0.08, 0.16),
+            blackMat
+        );
+        foot.position.set(dir * 0.55, -2.35, 0.25);
+        group.add(foot);
+
+        const backFoot = foot.clone();
+        backFoot.position.z = -0.25;
+        group.add(backFoot);
     }
-
-    const strapMat = new THREE.MeshPhysicalMaterial({
-        color: 0x0e0e1e,
-        roughness: 0.9,
-        metalness: 0.1,
-    });
-
-    const leftArm = new THREE.Mesh(
-        new THREE.BoxGeometry(0.08, 0.12, 0.8),
-        strapMat
-    );
-    leftArm.position.set(-1.24, 0.1, -0.2);
-    leftArm.rotation.z = 0.1;
-    group.add(leftArm);
-
-    const rightArm = new THREE.Mesh(
-        new THREE.BoxGeometry(0.08, 0.12, 0.8),
-        strapMat
-    );
-    rightArm.position.set(1.24, 0.1, -0.2);
-    rightArm.rotation.z = -0.1;
-    group.add(rightArm);
-
-    const backStrap = new THREE.Mesh(
-        new THREE.TorusGeometry(0.6, 0.04, 12, 24, Math.PI),
-        strapMat
-    );
-    backStrap.position.set(0, 0.1, -1.2);
-    backStrap.rotation.x = Math.PI / 2;
-    group.add(backStrap);
-
-    const topStrap = new THREE.Mesh(
-        new THREE.BoxGeometry(0.05, 0.25, 0.05),
-        strapMat
-    );
-    topStrap.position.set(0, 0.78, -0.6);
-    topStrap.rotation.x = 0.3;
-    group.add(topStrap);
 
     return group;
 }
@@ -581,8 +543,8 @@ scene.add(galaxy);
 const { mesh: waveMesh, base: waveBase } = createWavePlane();
 scene.add(waveMesh);
 
-const headset = createVRHeadset();
-headset.position.set(0, -0.3, -2);
+const headset = createVirtualBoy();
+headset.position.set(0, 0.6, -2);
 scene.add(headset);
 
 const { group: shapeGroup, shapes } = createFloatingShapes();
@@ -654,7 +616,7 @@ function animate() {
     // Headset reage ao mouse
     headset.rotation.y = mouse.x * 0.5;
     headset.rotation.x = -mouse.y * 0.3;
-    headset.position.y = -0.3 + Math.sin(elapsed * 0.3) * 0.06;
+    headset.position.y = 0.6 + Math.sin(elapsed * 0.3) * 0.06;
 
     ringGroup.position.copy(headset.position);
     ringGroup.rotation.x = mouse.y * 0.2;

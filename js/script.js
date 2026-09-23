@@ -4,27 +4,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const progressBar = document.getElementById('progress-bar');
     const backToTop = document.getElementById('backToTop');
-    const cursorGlow = document.getElementById('cursor-glow');
+    const retroCursor = document.getElementById('retro-cursor');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    // Cursor glow — segue o mouse com lerp suave
-    if (cursorGlow && finePointer && !reducedMotion) {
-        const glow = { x: -500, y: -500, tx: -500, ty: -500 };
+    // Cursor retrô — anel neon que segue o mouse e reage a elementos clicáveis
+    if (retroCursor && finePointer && !reducedMotion) {
+        const pos = { x: -100, y: -100, tx: -100, ty: -100 };
 
         document.addEventListener('mousemove', (e) => {
-            glow.tx = e.clientX;
-            glow.ty = e.clientY;
+            pos.tx = e.clientX;
+            pos.ty = e.clientY;
+            retroCursor.classList.add('active');
         }, { passive: true });
 
-        (function glowLoop() {
-            glow.x += (glow.tx - glow.x) * 0.12;
-            glow.y += (glow.ty - glow.y) * 0.12;
-            cursorGlow.style.transform = `translate(${glow.x - 210}px, ${glow.y - 210}px)`;
-            requestAnimationFrame(glowLoop);
+        document.addEventListener('mouseleave', () => {
+            retroCursor.classList.remove('active');
+        });
+
+        // Estado de hover: o anel vira círculo rosa sobre links/botões
+        document.querySelectorAll('a, button, .skill-tag, .project-card').forEach(el => {
+            el.addEventListener('mouseenter', () => retroCursor.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => retroCursor.classList.remove('hovering'));
+        });
+
+        (function cursorLoop() {
+            pos.x += (pos.tx - pos.x) * 0.2;
+            pos.y += (pos.ty - pos.y) * 0.2;
+            retroCursor.style.transform = `translate(${pos.x - 14}px, ${pos.y - 14}px)`;
+            requestAnimationFrame(cursorLoop);
         })();
-    } else if (cursorGlow) {
-        cursorGlow.style.display = 'none';
     }
 
     // Tilt 3D + spotlight nos cards de projeto

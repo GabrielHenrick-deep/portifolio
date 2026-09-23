@@ -28,18 +28,18 @@ const clock = new THREE.Clock();
 
 /* ---------------------------------- Luzes ---------------------------------- */
 
-const ambientLight = new THREE.AmbientLight(0x6c5ce7, 0.25);
+const ambientLight = new THREE.AmbientLight(0xff2e97, 0.25);
 scene.add(ambientLight);
 
-const keyLight = new THREE.DirectionalLight(0xdcd6ff, 1.2);
+const keyLight = new THREE.DirectionalLight(0xffd6f0, 1.2);
 keyLight.position.set(3, 4, 5);
 scene.add(keyLight);
 
-const rimLight = new THREE.PointLight(0xa29bfe, 30, 20);
+const rimLight = new THREE.PointLight(0x00f5ff, 30, 20);
 rimLight.position.set(-4, 2, 2);
 scene.add(rimLight);
 
-const pulseLight = new THREE.PointLight(0x6c5ce7, 20, 15);
+const pulseLight = new THREE.PointLight(0xff2e97, 20, 15);
 pulseLight.position.set(0, -0.3, 0);
 scene.add(pulseLight);
 
@@ -98,8 +98,8 @@ function createGalaxy() {
     const count = 5000;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-    const inner = new THREE.Color(0xa29bfe);
-    const outer = new THREE.Color(0x2a1b6e);
+    const inner = new THREE.Color(0x00f5ff);
+    const outer = new THREE.Color(0x1a0533);
 
     for (let i = 0; i < count; i++) {
         const radius = Math.random() * 9;
@@ -144,7 +144,7 @@ function createGalaxy() {
 function createWavePlane() {
     const geometry = new THREE.PlaneGeometry(40, 24, 80, 48);
     const material = new THREE.MeshBasicMaterial({
-        color: 0x6c5ce7,
+        color: 0xff2e97,
         wireframe: true,
         transparent: true,
         opacity: 0.18,
@@ -170,10 +170,10 @@ function createVRHeadset() {
     });
 
     const accentMat = new THREE.MeshPhysicalMaterial({
-        color: 0x6c5ce7,
+        color: 0xff2e97,
         metalness: 0.4,
         roughness: 0.2,
-        emissive: 0x6c5ce7,
+        emissive: 0xff2e97,
         emissiveIntensity: 0.08,
     });
 
@@ -198,7 +198,7 @@ function createVRHeadset() {
 
     const edges = new THREE.EdgesGeometry(body.geometry);
     const lineMat = new THREE.LineBasicMaterial({
-        color: 0x6c5ce7,
+        color: 0xff2e97,
         transparent: true,
         opacity: 0.15,
     });
@@ -224,10 +224,10 @@ function createVRHeadset() {
         const innerRing = new THREE.Mesh(
             new THREE.TorusGeometry(0.22, 0.03, 20, 40),
             new THREE.MeshPhysicalMaterial({
-                color: 0x6c5ce7,
+                color: 0xff2e97,
                 metalness: 0.5,
                 roughness: 0.2,
-                emissive: 0x6c5ce7,
+                emissive: 0xff2e97,
                 emissiveIntensity: 0.15,
                 transparent: true,
                 opacity: 0.5,
@@ -246,7 +246,7 @@ function createVRHeadset() {
         const glow = new THREE.Mesh(
             new THREE.CircleGeometry(0.12, 32),
             new THREE.MeshBasicMaterial({
-                color: 0x6c5ce7,
+                color: 0xff2e97,
                 transparent: true,
                 opacity: 0.08,
             })
@@ -331,12 +331,12 @@ function createFloatingShapes() {
             : new THREE.OctahedronGeometry(0.35, 0);
 
         const mat = new THREE.MeshPhysicalMaterial({
-            color: 0x6c5ce7,
+            color: 0xff2e97,
             metalness: 0.3,
             roughness: 0.4,
             transparent: true,
             opacity: 0.5,
-            emissive: 0x6c5ce7,
+            emissive: 0xff2e97,
             emissiveIntensity: 0.05,
         });
 
@@ -344,7 +344,7 @@ function createFloatingShapes() {
         mesh.position.set(pos.x, pos.y, pos.z);
 
         const wireMat = new THREE.MeshBasicMaterial({
-            color: 0xa29bfe,
+            color: 0x00f5ff,
             wireframe: true,
             transparent: true,
             opacity: 0.15,
@@ -380,7 +380,7 @@ function createOrbitingRings() {
         const ring = new THREE.Mesh(
             new THREE.TorusGeometry(radius, 0.015, 16, 60),
             new THREE.MeshBasicMaterial({
-                color: 0x6c5ce7,
+                color: 0xff2e97,
                 transparent: true,
                 opacity: 0.2 - i * 0.05,
             })
@@ -420,7 +420,7 @@ function createAmbientParticles() {
 
     const material = new THREE.PointsMaterial({
         size: 0.03,
-        color: 0xa29bfe,
+        color: 0x00f5ff,
         transparent: true,
         opacity: 0.3,
         blending: THREE.AdditiveBlending,
@@ -447,7 +447,7 @@ function createDistantFloatingShapes() {
     for (const pos of positions) {
         const geo = new THREE.IcosahedronGeometry(0.2, 0);
         const mat = new THREE.MeshBasicMaterial({
-            color: 0x6c5ce7,
+            color: 0xff2e97,
             wireframe: true,
             transparent: true,
             opacity: 0.08,
@@ -464,7 +464,7 @@ function createPulseRing() {
     const ring = new THREE.Mesh(
         new THREE.TorusGeometry(0.5, 0.02, 16, 40),
         new THREE.MeshBasicMaterial({
-            color: 0x6c5ce7,
+            color: 0xff2e97,
             transparent: true,
             opacity: 0.6,
         })
@@ -481,10 +481,10 @@ function createTorusKnot() {
     const knot = new THREE.Mesh(
         new THREE.TorusKnotGeometry(1.1, 0.28, 180, 24),
         new THREE.MeshPhysicalMaterial({
-            color: 0x5a4bd1,
+            color: 0xd61f86,
             metalness: 0.7,
             roughness: 0.25,
-            emissive: 0x6c5ce7,
+            emissive: 0xff2e97,
             emissiveIntensity: 0.06,
             transparent: true,
             opacity: 0.85,
@@ -494,7 +494,7 @@ function createTorusKnot() {
     const wire = new THREE.Mesh(
         new THREE.TorusKnotGeometry(1.1, 0.3, 90, 12),
         new THREE.MeshBasicMaterial({
-            color: 0xa29bfe,
+            color: 0x00f5ff,
             wireframe: true,
             transparent: true,
             opacity: 0.08,
@@ -508,32 +508,66 @@ function createTorusKnot() {
     return group;
 }
 
-/* ----------------------------- Trilha do mouse ------------------------------ */
+/* --------------------------- Sol synthwave (retrô) -------------------------- */
 
-function createMouseTrail() {
-    const count = 60;
-    const positions = new Float32Array(count * 3);
-    const lifetimes = new Float32Array(count);
-
-    for (let i = 0; i < count; i++) {
-        lifetimes[i] = -1; // inativo
-    }
-
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    geometry.setAttribute('aLife', new THREE.Float32BufferAttribute(lifetimes, 1));
-
-    const material = new THREE.PointsMaterial({
-        size: 0.12,
-        color: 0xa29bfe,
+function createRetroSun() {
+    // Sol com degradê e listras horizontais, clássico anos 80
+    const material = new THREE.ShaderMaterial({
         transparent: true,
-        opacity: 0.7,
-        blending: THREE.AdditiveBlending,
         depthWrite: false,
+        uniforms: {
+            uTime: { value: 0 },
+        },
+        vertexShader: /* glsl */`
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: /* glsl */`
+            varying vec2 vUv;
+            uniform float uTime;
+
+            void main() {
+                float y = vUv.y;
+                // Degradê rosa -> laranja do sol retrô
+                vec3 topColor = vec3(1.0, 0.18, 0.55);
+                vec3 bottomColor = vec3(1.0, 0.75, 0.2);
+                vec3 color = mix(bottomColor, topColor, y);
+
+                // Listras na metade inferior (que sobem lentamente)
+                float stripesGap = 0.0;
+                if (y < 0.5) {
+                    float shift = fract(uTime * 0.05 + y * 14.0);
+                    float thickness = mix(0.08, 0.3, y * 2.0);
+                    if (shift > thickness) stripesGap = 1.0;
+                }
+
+                float alpha = 1.0 - stripesGap;
+                gl_FragColor = vec4(color, alpha * 0.9);
+            }
+        `,
     });
 
-    const points = new THREE.Points(geometry, material);
-    return { points, lifetimes, cursor: 0 };
+    const sun = new THREE.Mesh(new THREE.CircleGeometry(3.5, 64), material);
+    sun.position.set(-7, -4, -20);
+
+    // Halo em volta do sol
+    const halo = new THREE.Mesh(
+        new THREE.CircleGeometry(4.4, 64),
+        new THREE.MeshBasicMaterial({
+            color: 0xff2e97,
+            transparent: true,
+            opacity: 0.12,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+        })
+    );
+    halo.position.z = -0.1;
+    sun.add(halo);
+
+    return sun;
 }
 
 /* ------------------------------ Montagem da cena ---------------------------- */
@@ -570,41 +604,22 @@ scene.add(pulseRing);
 const torusKnot = createTorusKnot();
 scene.add(torusKnot);
 
-const trail = createMouseTrail();
-scene.add(trail.points);
+const retroSun = createRetroSun();
+scene.add(retroSun);
 
 /* ------------------------------ Interatividade ------------------------------ */
 
 const mouse = { x: 0, y: 0 };
 const target = { x: 0, y: 0 };
-const raycaster = new THREE.Raycaster();
-const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-const hitPoint = new THREE.Vector3();
 
 const particlePos = ambientParticles.geometry.attributes.position.array;
 const wavePos = waveMesh.geometry.attributes.position.array;
-const trailPos = trail.points.geometry.attributes.position.array;
 
 let scrollProgress = 0;
-
-function emitTrailParticle() {
-    // Converte a posição do mouse para o mundo 3D no plano z=0
-    const ndc = new THREE.Vector2(target.x, -target.y);
-    raycaster.setFromCamera(ndc, camera);
-    if (raycaster.ray.intersectPlane(interactionPlane, hitPoint)) {
-        const i = trail.cursor;
-        trailPos[i * 3] = hitPoint.x + (Math.random() - 0.5) * 0.15;
-        trailPos[i * 3 + 1] = hitPoint.y + (Math.random() - 0.5) * 0.15;
-        trailPos[i * 3 + 2] = hitPoint.z + (Math.random() - 0.5) * 0.3;
-        trail.lifetimes[i] = 1;
-        trail.cursor = (i + 1) % trail.lifetimes.length;
-    }
-}
 
 document.addEventListener('mousemove', (e) => {
     target.x = (e.clientX / window.innerWidth - 0.5) * 2;
     target.y = (e.clientY / window.innerHeight - 0.5) * 2;
-    emitTrailParticle();
 });
 
 document.addEventListener('touchmove', (e) => {
@@ -612,7 +627,6 @@ document.addEventListener('touchmove', (e) => {
     if (touch) {
         target.x = (touch.clientX / window.innerWidth - 0.5) * 2;
         target.y = (touch.clientY / window.innerHeight - 0.5) * 2;
-        emitTrailParticle();
     }
 }, { passive: true });
 
@@ -684,14 +698,8 @@ function animate() {
         waveMesh.geometry.attributes.position.needsUpdate = true;
     }
 
-    // Trilha do mouse: decai suavemente
-    for (let i = 0; i < trail.lifetimes.length; i++) {
-        if (trail.lifetimes[i] > 0) {
-            trail.lifetimes[i] -= 0.02;
-            trailPos[i * 3 + 1] += 0.01;
-        }
-    }
-    trail.points.geometry.attributes.position.needsUpdate = true;
+    // Sol retrô: listras animadas
+    retroSun.material.uniforms.uTime.value = elapsed;
 
     // Galáxia girando lentamente
     galaxy.rotation.y += 0.0008;

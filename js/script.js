@@ -18,20 +18,29 @@ document.addEventListener('DOMContentLoaded', () => {
             retroCursor.classList.add('active');
         }, { passive: true });
 
-        document.addEventListener('mouseleave', () => {
-            retroCursor.classList.remove('active');
+        // Esconde quando o mouse sai da janela
+        document.addEventListener('mouseout', (e) => {
+            if (!e.relatedTarget) {
+                retroCursor.classList.remove('active');
+            }
         });
 
-        // Estado de hover: o anel vira círculo rosa sobre links/botões
-        document.querySelectorAll('a, button, .skill-tag, .project-card').forEach(el => {
-            el.addEventListener('mouseenter', () => retroCursor.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => retroCursor.classList.remove('hovering'));
+        // Hover via delegação (funciona até movendo rápido entre elementos)
+        document.addEventListener('mouseover', (e) => {
+            const interactive = e.target.closest('a, button, .skill-tag, .project-card, .contact-card');
+            retroCursor.classList.toggle('hovering', !!interactive);
         });
+
+        // Feedback de clique
+        document.addEventListener('mousedown', () => retroCursor.classList.add('pressed'));
+        document.addEventListener('mouseup', () => retroCursor.classList.remove('pressed'));
 
         (function cursorLoop() {
-            pos.x += (pos.tx - pos.x) * 0.2;
-            pos.y += (pos.ty - pos.y) * 0.2;
-            retroCursor.style.transform = `translate(${pos.x - 14}px, ${pos.y - 14}px)`;
+            // Lerp rápido: segue sem parecer travado
+            pos.x += (pos.tx - pos.x) * 0.5;
+            pos.y += (pos.ty - pos.y) * 0.5;
+            retroCursor.style.left = pos.x + 'px';
+            retroCursor.style.top = pos.y + 'px';
             requestAnimationFrame(cursorLoop);
         })();
     }

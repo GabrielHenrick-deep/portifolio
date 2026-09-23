@@ -13,6 +13,8 @@ try {
 }
 
 const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x0a0a0f, 0.035);
+
 const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
 camera.position.z = 5;
 
@@ -23,6 +25,25 @@ renderer.toneMappingExposure = 1.5;
 container.appendChild(renderer.domElement);
 
 const clock = new THREE.Clock();
+
+/* ---------------------------------- Luzes ---------------------------------- */
+
+const ambientLight = new THREE.AmbientLight(0x6c5ce7, 0.25);
+scene.add(ambientLight);
+
+const keyLight = new THREE.DirectionalLight(0xdcd6ff, 1.2);
+keyLight.position.set(3, 4, 5);
+scene.add(keyLight);
+
+const rimLight = new THREE.PointLight(0xa29bfe, 30, 20);
+rimLight.position.set(-4, 2, 2);
+scene.add(rimLight);
+
+const pulseLight = new THREE.PointLight(0x6c5ce7, 20, 15);
+pulseLight.position.set(0, -0.3, 0);
+scene.add(pulseLight);
+
+/* --------------------------------- Estrelas -------------------------------- */
 
 function createStarfield() {
     const count = 3000;
@@ -70,6 +91,74 @@ function createStarfield() {
 
     return new THREE.Points(geometry, material);
 }
+
+/* ------------------------------ Galáxia espiral ----------------------------- */
+
+function createGalaxy() {
+    const count = 5000;
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+    const inner = new THREE.Color(0xa29bfe);
+    const outer = new THREE.Color(0x2a1b6e);
+
+    for (let i = 0; i < count; i++) {
+        const radius = Math.random() * 9;
+        const branchAngle = ((i % 3) / 3) * Math.PI * 2;
+        const spin = radius * 0.35;
+        const randX = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.5 * radius * 0.3;
+        const randY = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.25;
+        const randZ = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * 0.5 * radius * 0.3;
+
+        positions[i * 3] = Math.cos(branchAngle + spin) * radius + randX;
+        positions[i * 3 + 1] = randY;
+        positions[i * 3 + 2] = Math.sin(branchAngle + spin) * radius + randZ;
+
+        const color = inner.clone().lerp(outer, radius / 9);
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.06,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true,
+    });
+
+    const points = new THREE.Points(geometry, material);
+    points.position.set(0, 4.5, -14);
+    points.rotation.x = -0.35;
+    return points;
+}
+
+/* ------------------------------ Onda wireframe ------------------------------ */
+
+function createWavePlane() {
+    const geometry = new THREE.PlaneGeometry(40, 24, 80, 48);
+    const material = new THREE.MeshBasicMaterial({
+        color: 0x6c5ce7,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.18,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.position.y = -2.6;
+    const base = geometry.attributes.position.array.slice();
+    return { mesh, base };
+}
+
+/* ------------------------------ Headset de VR ------------------------------- */
 
 function createVRHeadset() {
     const group = new THREE.Group();
@@ -221,13 +310,7 @@ function createVRHeadset() {
     return group;
 }
 
-function createVRGrid() {
-    const gridHelper = new THREE.GridHelper(18, 24, 0x6c5ce7, 0x2a2a3a);
-    gridHelper.position.y = -2;
-    gridHelper.material.transparent = true;
-    gridHelper.material.opacity = 0.25;
-    return gridHelper;
-}
+/* --------------------------- Formas & anéis orbitais ------------------------ */
 
 function createFloatingShapes() {
     const group = new THREE.Group();
@@ -253,7 +336,6 @@ function createFloatingShapes() {
             roughness: 0.4,
             transparent: true,
             opacity: 0.5,
-            wireframe: false,
             emissive: 0x6c5ce7,
             emissiveIntensity: 0.05,
         });
@@ -308,14 +390,12 @@ function createOrbitingRings() {
         ring.rotation.x = Math.PI / 3 + angle * 0.2;
         ring.rotation.y = angle;
 
-        const data = {
+        rings.push({
             mesh: ring,
             rotSpeed: { x: 0.1 + i * 0.05, y: 0.15 + i * 0.04 },
-            angle,
-        };
+        });
 
         group.add(ring);
-        rings.push(data);
     }
 
     return { group, rings };
@@ -389,20 +469,87 @@ function createPulseRing() {
             opacity: 0.6,
         })
     );
-    ring.position.set(0, -0.3, -1);
     ring.rotation.x = Math.PI / 2;
     return ring;
 }
 
+/* ------------------------------ Torus knot de fundo ------------------------- */
+
+function createTorusKnot() {
+    const group = new THREE.Group();
+
+    const knot = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(1.1, 0.28, 180, 24),
+        new THREE.MeshPhysicalMaterial({
+            color: 0x5a4bd1,
+            metalness: 0.7,
+            roughness: 0.25,
+            emissive: 0x6c5ce7,
+            emissiveIntensity: 0.06,
+            transparent: true,
+            opacity: 0.85,
+        })
+    );
+
+    const wire = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(1.1, 0.3, 90, 12),
+        new THREE.MeshBasicMaterial({
+            color: 0xa29bfe,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.08,
+        })
+    );
+
+    group.add(knot);
+    group.add(wire);
+    group.position.set(6.5, 2.5, -8);
+    group.scale.setScalar(1.6);
+    return group;
+}
+
+/* ----------------------------- Trilha do mouse ------------------------------ */
+
+function createMouseTrail() {
+    const count = 60;
+    const positions = new Float32Array(count * 3);
+    const lifetimes = new Float32Array(count);
+
+    for (let i = 0; i < count; i++) {
+        lifetimes[i] = -1; // inativo
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('aLife', new THREE.Float32BufferAttribute(lifetimes, 1));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.12,
+        color: 0xa29bfe,
+        transparent: true,
+        opacity: 0.7,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+    });
+
+    const points = new THREE.Points(geometry, material);
+    return { points, lifetimes, cursor: 0 };
+}
+
+/* ------------------------------ Montagem da cena ---------------------------- */
+
 const stars = createStarfield();
 scene.add(stars);
+
+const galaxy = createGalaxy();
+scene.add(galaxy);
+
+const { mesh: waveMesh, base: waveBase } = createWavePlane();
+scene.add(waveMesh);
 
 const headset = createVRHeadset();
 headset.position.set(0, -0.3, -2);
 scene.add(headset);
-
-const grid = createVRGrid();
-scene.add(grid);
 
 const { group: shapeGroup, shapes } = createFloatingShapes();
 scene.add(shapeGroup);
@@ -420,15 +567,44 @@ scene.add(distantShapes);
 const pulseRing = createPulseRing();
 scene.add(pulseRing);
 
+const torusKnot = createTorusKnot();
+scene.add(torusKnot);
+
+const trail = createMouseTrail();
+scene.add(trail.points);
+
+/* ------------------------------ Interatividade ------------------------------ */
+
 const mouse = { x: 0, y: 0 };
 const target = { x: 0, y: 0 };
+const raycaster = new THREE.Raycaster();
+const interactionPlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+const hitPoint = new THREE.Vector3();
 
-// Referência cacheada do buffer de partículas (evita lookup por frame)
 const particlePos = ambientParticles.geometry.attributes.position.array;
+const wavePos = waveMesh.geometry.attributes.position.array;
+const trailPos = trail.points.geometry.attributes.position.array;
+
+let scrollProgress = 0;
+
+function emitTrailParticle() {
+    // Converte a posição do mouse para o mundo 3D no plano z=0
+    const ndc = new THREE.Vector2(target.x, -target.y);
+    raycaster.setFromCamera(ndc, camera);
+    if (raycaster.ray.intersectPlane(interactionPlane, hitPoint)) {
+        const i = trail.cursor;
+        trailPos[i * 3] = hitPoint.x + (Math.random() - 0.5) * 0.15;
+        trailPos[i * 3 + 1] = hitPoint.y + (Math.random() - 0.5) * 0.15;
+        trailPos[i * 3 + 2] = hitPoint.z + (Math.random() - 0.5) * 0.3;
+        trail.lifetimes[i] = 1;
+        trail.cursor = (i + 1) % trail.lifetimes.length;
+    }
+}
 
 document.addEventListener('mousemove', (e) => {
     target.x = (e.clientX / window.innerWidth - 0.5) * 2;
     target.y = (e.clientY / window.innerHeight - 0.5) * 2;
+    emitTrailParticle();
 });
 
 document.addEventListener('touchmove', (e) => {
@@ -436,10 +612,22 @@ document.addEventListener('touchmove', (e) => {
     if (touch) {
         target.x = (touch.clientX / window.innerWidth - 0.5) * 2;
         target.y = (touch.clientY / window.innerHeight - 0.5) * 2;
+        emitTrailParticle();
     }
 }, { passive: true });
 
+function updateScrollProgress() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgress = max > 0 ? window.scrollY / max : 0;
+}
+
+window.addEventListener('scroll', updateScrollProgress, { passive: true });
+updateScrollProgress();
+
+/* --------------------------------- Loop ------------------------------------- */
+
 let rafId = null;
+let frameCount = 0;
 
 function animate() {
     rafId = requestAnimationFrame(animate);
@@ -449,6 +637,7 @@ function animate() {
     mouse.x += (target.x - mouse.x) * 0.08;
     mouse.y += (target.y - mouse.y) * 0.08;
 
+    // Headset reage ao mouse
     headset.rotation.y = mouse.x * 0.5;
     headset.rotation.x = -mouse.y * 0.3;
     headset.position.y = -0.3 + Math.sin(elapsed * 0.3) * 0.06;
@@ -470,6 +659,7 @@ function animate() {
         s.wireframe.position.y = s.mesh.position.y;
     }
 
+    // Partículas ambiente sobem e reaparecem
     for (let i = 0; i < particlePos.length / 3; i++) {
         particlePos[i * 3 + 1] += ambSpeeds[i] * 0.005;
         particlePos[i * 3] += Math.sin(elapsed * 0.3 + ambOffsets[i]) * 0.001;
@@ -481,15 +671,54 @@ function animate() {
     }
     ambientParticles.geometry.attributes.position.needsUpdate = true;
 
-    distantShapes.rotation.y += 0.0003;
+    // Onda senoidal no plano (a cada 2 frames, para economia)
+    frameCount++;
+    if (frameCount % 2 === 0) {
+        for (let i = 0; i < wavePos.length / 3; i++) {
+            const x = waveBase[i * 3];
+            const y = waveBase[i * 3 + 1];
+            wavePos[i * 3 + 2] =
+                Math.sin(x * 0.5 + elapsed * 0.8) * 0.35 +
+                Math.sin(y * 0.4 + elapsed * 0.6) * 0.25;
+        }
+        waveMesh.geometry.attributes.position.needsUpdate = true;
+    }
+
+    // Trilha do mouse: decai suavemente
+    for (let i = 0; i < trail.lifetimes.length; i++) {
+        if (trail.lifetimes[i] > 0) {
+            trail.lifetimes[i] -= 0.02;
+            trailPos[i * 3 + 1] += 0.01;
+        }
+    }
+    trail.points.geometry.attributes.position.needsUpdate = true;
+
+    // Galáxia girando lentamente
+    galaxy.rotation.y += 0.0008;
+
+    // Torus knot em rotação
+    torusKnot.rotation.x += 0.002;
+    torusKnot.rotation.y += 0.003;
+
+    // Luz de pulso acompanha o headset
+    pulseLight.position.y = headset.position.y;
+    pulseLight.intensity = 15 + Math.sin(elapsed * 2) * 8;
+    rimLight.intensity = 25 + Math.sin(elapsed * 1.3) * 10;
 
     const pulseScale = 1 + Math.sin(elapsed * 0.8) * 2;
     pulseRing.scale.set(pulseScale, pulseScale, 1);
     pulseRing.material.opacity = 0.6 - Math.abs(Math.sin(elapsed * 0.8)) * 0.4;
-    pulseRing.position.y = headset.position.y;
+    pulseRing.position.set(0, headset.position.y, -1);
 
     stars.rotation.y += 0.00015;
     stars.rotation.x += 0.00003;
+    distantShapes.rotation.y += 0.0003;
+
+    // Parallax de scroll: câmera desce e a cena ganha profundidade
+    camera.position.y = -scrollProgress * 2.5;
+    camera.position.x = mouse.x * 0.4;
+    camera.lookAt(0, camera.position.y * 0.8, -2);
+    camera.rotation.z += mouse.x * -0.02;
 
     renderer.render(scene, camera);
 }

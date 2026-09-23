@@ -4,7 +4,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
     const progressBar = document.getElementById('progress-bar');
     const backToTop = document.getElementById('backToTop');
+    const cursorGlow = document.getElementById('cursor-glow');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    // Cursor glow — segue o mouse com lerp suave
+    if (cursorGlow && finePointer && !reducedMotion) {
+        const glow = { x: -500, y: -500, tx: -500, ty: -500 };
+
+        document.addEventListener('mousemove', (e) => {
+            glow.tx = e.clientX;
+            glow.ty = e.clientY;
+        }, { passive: true });
+
+        (function glowLoop() {
+            glow.x += (glow.tx - glow.x) * 0.12;
+            glow.y += (glow.ty - glow.y) * 0.12;
+            cursorGlow.style.transform = `translate(${glow.x - 210}px, ${glow.y - 210}px)`;
+            requestAnimationFrame(glowLoop);
+        })();
+    } else if (cursorGlow) {
+        cursorGlow.style.display = 'none';
+    }
+
+    // Tilt 3D + spotlight nos cards de projeto
+    if (finePointer && !reducedMotion) {
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mx', x + 'px');
+                card.style.setProperty('--my', y + 'px');
+                const rx = ((y / rect.height) - 0.5) * -6;
+                const ry = ((x / rect.width) - 0.5) * 6;
+                card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
 
     // Ano dinâmico no footer
     const yearEl = document.getElementById('current-year');

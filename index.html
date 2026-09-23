@@ -45,7 +45,8 @@
     <script type="importmap">
         {
             "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
             }
         }
     </script>
@@ -53,6 +54,7 @@
 <body>
     <a href="#about" class="skip-link">Pular para o conteúdo</a>
     <div id="progress-bar" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar" aria-label="Navegação principal">
         <div class="container nav-content">
@@ -90,7 +92,22 @@
                 <span>Laravel</span><span>TypeScript</span><span>Unity</span><span>Docker</span><span>Linux</span>
             </div>
         </div>
+        <a href="#about" class="scroll-hint" aria-label="Rolar para a seção Sobre">
+            <span class="scroll-hint-mouse" aria-hidden="true"><span class="scroll-hint-wheel"></span></span>
+            <span class="scroll-hint-text">scroll</span>
+        </a>
     </section>
+
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <div class="marquee-group">
+                <span>Laravel</span><span class="marquee-dot">&#10022;</span><span>TypeScript</span><span class="marquee-dot">&#10022;</span><span>React</span><span class="marquee-dot">&#10022;</span><span>PHP</span><span class="marquee-dot">&#10022;</span><span>MySQL</span><span class="marquee-dot">&#10022;</span><span>PostgreSQL</span><span class="marquee-dot">&#10022;</span><span>Unity</span><span class="marquee-dot">&#10022;</span><span>C#</span><span class="marquee-dot">&#10022;</span><span>Meta SDK</span><span class="marquee-dot">&#10022;</span><span>OpenXR</span><span class="marquee-dot">&#10022;</span><span>Docker</span><span class="marquee-dot">&#10022;</span><span>Linux</span><span class="marquee-dot">&#10022;</span><span>Nginx</span><span class="marquee-dot">&#10022;</span><span>AWS</span><span class="marquee-dot">&#10022;</span><span>CI/CD</span><span class="marquee-dot">&#10022;</span>
+            </div>
+            <div class="marquee-group">
+                <span>Laravel</span><span class="marquee-dot">&#10022;</span><span>TypeScript</span><span class="marquee-dot">&#10022;</span><span>React</span><span class="marquee-dot">&#10022;</span><span>PHP</span><span class="marquee-dot">&#10022;</span><span>MySQL</span><span class="marquee-dot">&#10022;</span><span>PostgreSQL</span><span class="marquee-dot">&#10022;</span><span>Unity</span><span class="marquee-dot">&#10022;</span><span>C#</span><span class="marquee-dot">&#10022;</span><span>Meta SDK</span><span class="marquee-dot">&#10022;</span><span>OpenXR</span><span class="marquee-dot">&#10022;</span><span>Docker</span><span class="marquee-dot">&#10022;</span><span>Linux</span><span class="marquee-dot">&#10022;</span><span>Nginx</span><span class="marquee-dot">&#10022;</span><span>AWS</span><span class="marquee-dot">&#10022;</span><span>CI/CD</span><span class="marquee-dot">&#10022;</span>
+            </div>
+        </div>
+    </div>
 
     <section id="about" class="section">
         <div class="container">

@@ -657,6 +657,123 @@ body {
     color: var(--accent-light);
 }
 
+/* Projects — janela de navegador antiga (estilo Win95/Netscape) */
+.retro-browser {
+    background: #c8c3d4;
+    border: 2px solid;
+    border-color: #f2eff8 #5a5470 #5a5470 #f2eff8;
+    border-radius: 3px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 24px rgba(0, 245, 255, 0.06);
+}
+
+.browser-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px 6px 12px;
+    background: linear-gradient(90deg, #000080, #5b2a86, #ff2e97);
+    border-bottom: 2px solid;
+    border-color: #5a5470 #f2eff8 #f2eff8 #5a5470;
+}
+
+.browser-title {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.browser-controls {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+.browser-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 18px;
+    background: #c8c3d4;
+    border: 2px solid;
+    border-color: #f2eff8 #5a5470 #5a5470 #f2eff8;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1;
+    color: #1a1025;
+}
+
+.browser-close {
+    color: #a00030;
+    font-weight: 700;
+}
+
+.browser-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #c8c3d4;
+    border-bottom: 2px solid #5a5470;
+}
+
+.browser-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 24px;
+    background: #c8c3d4;
+    border: 2px solid;
+    border-color: #f2eff8 #5a5470 #5a5470 #f2eff8;
+    font-size: 0.9rem;
+    color: #1a1025;
+    user-select: none;
+}
+
+.browser-nav:active {
+    border-color: #5a5470 #f2eff8 #f2eff8 #5a5470;
+}
+
+.browser-url {
+    flex: 1;
+    padding: 3px 10px;
+    background: #fff;
+    border: 2px solid;
+    border-color: #5a5470 #f2eff8 #f2eff8 #5a5470;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #1a1025;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.browser-content {
+    padding: 20px;
+    background: var(--bg-secondary);
+}
+
+.browser-statusbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 12px;
+    background: #c8c3d4;
+    border-top: 2px solid;
+    border-color: #5a5470 #f2eff8 #f2eff8 #5a5470;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #1a1025;
+}
+
 /* Projects */
 .projects-grid {
     display: grid;

@@ -483,6 +483,11 @@ body {
     color: var(--text-primary);
 }
 
+.terminal-end {
+    margin-top: 12px;
+    margin-bottom: 0 !important;
+}
+
 .terminal-prompt {
     color: #28c840;
     text-shadow: 0 0 6px rgba(40, 200, 64, 0.5);

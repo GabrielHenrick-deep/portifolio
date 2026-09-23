@@ -435,41 +435,6 @@ function createPulseRing() {
     return ring;
 }
 
-/* ------------------------------ Torus knot de fundo ------------------------- */
-
-function createTorusKnot() {
-    const group = new THREE.Group();
-
-    const knot = new THREE.Mesh(
-        new THREE.TorusKnotGeometry(1.1, 0.28, 180, 24),
-        new THREE.MeshPhysicalMaterial({
-            color: 0xd61f86,
-            metalness: 0.7,
-            roughness: 0.25,
-            emissive: 0xff2e97,
-            emissiveIntensity: 0.06,
-            transparent: true,
-            opacity: 0.85,
-        })
-    );
-
-    const wire = new THREE.Mesh(
-        new THREE.TorusKnotGeometry(1.1, 0.3, 90, 12),
-        new THREE.MeshBasicMaterial({
-            color: 0x00f5ff,
-            wireframe: true,
-            transparent: true,
-            opacity: 0.08,
-        })
-    );
-
-    group.add(knot);
-    group.add(wire);
-    group.position.set(6.5, 2.5, -8);
-    group.scale.setScalar(1.6);
-    return group;
-}
-
 /* --------------------------- Sol synthwave (retrô) -------------------------- */
 
 function createRetroSun() {
@@ -562,9 +527,6 @@ scene.add(distantShapes);
 
 const pulseRing = createPulseRing();
 scene.add(pulseRing);
-
-const torusKnot = createTorusKnot();
-scene.add(torusKnot);
 
 const retroSun = createRetroSun();
 scene.add(retroSun);
@@ -665,10 +627,6 @@ function animate() {
 
     // Galáxia girando lentamente
     galaxy.rotation.y += 0.0008;
-
-    // Torus knot em rotação
-    torusKnot.rotation.x += 0.002;
-    torusKnot.rotation.y += 0.003;
 
     // Luz de pulso acompanha o headset
     pulseLight.position.y = headset.position.y;

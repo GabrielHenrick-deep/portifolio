@@ -758,7 +758,9 @@ body {
 
 .browser-content {
     padding: 20px;
-    background: var(--bg-secondary);
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 46, 151, 0.08), transparent 60%),
+        var(--bg-secondary);
 }
 
 .browser-statusbar {
@@ -774,99 +776,107 @@ body {
     color: #1a1025;
 }
 
-/* Projects */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
+/* Projects — posts de blog antigo (estilo Blogger/WordPress anos 2000) */
+.blog-page {
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 26px, rgba(120, 90, 40, 0.05) 26px 27px),
+        linear-gradient(180deg, #f7f0dd 0%, #f2e9d2 100%);
+    border: 2px solid;
+    border-color: #8a7a55 #fffdf4 #fffdf4 #8a7a55;
+    padding: 28px clamp(16px, 4vw, 40px);
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #3d3225;
 }
 
-.project-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-    transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
-    backdrop-filter: blur(8px);
-    position: relative;
-    overflow: hidden;
-    transform-style: preserve-3d;
+.blog-masthead {
+    text-align: center;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 3px double #a08c5f;
 }
 
-.project-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 46, 151, 0.12), transparent 40%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
+.blog-name {
+    display: block;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    color: #5b2a86;
+    text-shadow: 1px 1px 0 #fff;
+    letter-spacing: 0.5px;
 }
 
-.project-card:hover::before {
-    opacity: 1;
-}
-
-.project-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px var(--accent-glow);
-}
-
-.project-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.project-icon {
-    font-size: 1.5rem;
-    color: var(--accent-light);
-}
-
-.project-langs {
-    display: flex;
-    gap: 6px;
-}
-
-.project-langs span {
-    padding: 4px 10px;
-    background: rgba(255, 46, 151, 0.1);
-    border-radius: 4px;
+.blog-tagline {
+    display: block;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--accent-light);
+    font-size: 0.95rem;
+    color: #8a7a55;
+    margin-top: 4px;
 }
 
-.project-card h3 {
-    font-size: 1.15rem;
-    margin-bottom: 12px;
+.blog-post {
+    padding: 18px 0 20px;
+    border-bottom: 1px dashed #b8a678;
 }
 
-.project-card p {
-    color: var(--text-secondary);
+.blog-post:last-child {
+    border-bottom: none;
+    padding-bottom: 4px;
+}
+
+.post-date {
+    font-family: var(--font-mono);
     font-size: 0.9rem;
-    margin-bottom: 20px;
-    line-height: 1.6;
-    flex: 1;
+    color: #8a7a55;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
 }
 
-.project-link {
-    color: var(--accent-light);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: gap 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+.post-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin-bottom: 8px;
 }
 
-.project-link:hover {
-    gap: 8px;
+.post-title a {
+    color: #5b2a86;
+    text-decoration: underline;
+    text-decoration-color: rgba(91, 42, 134, 0.4);
+    text-underline-offset: 3px;
+    transition: color 0.15s;
+}
+
+.post-title a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+}
+
+.post-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #4a3f2e;
+    margin-bottom: 10px;
+}
+
+.post-meta {
+    font-size: 0.8rem;
+    color: #8a7a55;
+    font-style: italic;
+}
+
+.post-meta strong {
+    color: #6b5c3d;
+}
+
+.post-source {
+    color: #b53b18;
+    text-decoration: underline;
+    font-style: normal;
+    transition: color 0.15s;
+}
+
+.post-source:hover {
+    color: var(--accent);
+    background: rgba(255, 46, 151, 0.1);
 }
 
 /* Contact */
@@ -978,8 +988,8 @@ body {
         display: block;
     }
 
-    .projects-grid {
-        grid-template-columns: 1fr;
+    .browser-content {
+        padding: 12px;
     }
 
     .timeline::before {
@@ -1035,7 +1045,7 @@ body {
         cursor: none;
     }
 
-    a, button, .skill-tag, .project-card {
+    a, button, .skill-tag, .blog-post {
         cursor: none;
     }
 }

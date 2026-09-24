@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hover via delegação (funciona até movendo rápido entre elementos)
         document.addEventListener('mouseover', (e) => {
-            const interactive = e.target.closest('a, button, .skill-tag, .project-card, .contact-card');
+            const interactive = e.target.closest('a, button, .skill-tag, .blog-post, .contact-card');
             retroCursor.classList.toggle('hovering', !!interactive);
         });
 
@@ -45,24 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
     }
 
-    // Tilt 3D + spotlight nos cards de projeto
-    if (finePointer && !reducedMotion) {
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mx', x + 'px');
-                card.style.setProperty('--my', y + 'px');
-                const rx = ((y / rect.height) - 0.5) * -6;
-                const ry = ((x / rect.width) - 0.5) * 6;
-                card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-    }
+    // Posts de blog antigos: sem tilt 3D, o charme é ser estático como nos anos 2000
 
     // Ano dinâmico no footer
     const yearEl = document.getElementById('current-year');
@@ -102,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.skill-category, .project-card, .stat, .contact-card, .timeline-item').forEach(el => {
+    document.querySelectorAll('.skill-category, .blog-post, .stat, .contact-card, .timeline-item').forEach(el => {
         el.classList.add('reveal');
         observer.observe(el);
     });

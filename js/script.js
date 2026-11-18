@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cursor retrô — anel neon que segue o mouse e reage a elementos clicáveis
     if (retroCursor && finePointer && !reducedMotion) {
+        // Só esconde o cursor nativo quando o customizado está ativo
+        document.documentElement.classList.add('custom-cursor');
         const pos = { x: -100, y: -100, tx: -100, ty: -100 };
 
         document.addEventListener('mousemove', (e) => {
@@ -27,13 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hover via delegação (funciona até movendo rápido entre elementos)
         document.addEventListener('mouseover', (e) => {
-            const interactive = e.target.closest('a, button, .skill-tag, .blog-post, .contact-card');
+            const interactive = e.target.closest('a, button, .skill-tag, .grid-row, .contact-card');
             retroCursor.classList.toggle('hovering', !!interactive);
         });
 
         // Feedback de clique
         document.addEventListener('mousedown', () => retroCursor.classList.add('pressed'));
         document.addEventListener('mouseup', () => retroCursor.classList.remove('pressed'));
+        window.addEventListener('blur', () => retroCursor.classList.remove('pressed'));
 
         (function cursorLoop() {
             // Lerp rápido: segue sem parecer travado
@@ -45,7 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
     }
 
-    // Posts de blog antigos: sem tilt 3D, o charme é ser estático como nos anos 2000
+    // Luzes de largada: acendem uma a uma e apagam — a cena 3D larga junto
+    const startLights = document.querySelector('.start-lights');
+    function lightsOut() {
+        window.__lightsOut = true;
+        window.dispatchEvent(new Event('lightsout'));
+    }
+    if (startLights && !reducedMotion) {
+        const bulbs = startLights.querySelectorAll('span');
+        const STEP = 650;
+        bulbs.forEach((bulb, i) => setTimeout(() => bulb.classList.add('on'), 500 + i * STEP));
+        // Tempo aleatório antes do apagar, como na largada real
+        setTimeout(() => {
+            bulbs.forEach(b => b.classList.remove('on'));
+            startLights.classList.add('out');
+            lightsOut();
+        }, 500 + bulbs.length * STEP + 300 + Math.random() * 900);
+    } else {
+        lightsOut();
+    }
 
     // Ano dinâmico no footer
     const yearEl = document.getElementById('current-year');
@@ -85,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.skill-category, .blog-post, .stat, .contact-card, .timeline-item').forEach(el => {
+    document.querySelectorAll('.skill-category, .grid-row, .stat, .contact-card, .timeline-item').forEach(el => {
         el.classList.add('reveal');
         observer.observe(el);
     });
@@ -96,11 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const href = anchor.getAttribute('href');
             if (href === '#') {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
             } else {
                 const target = document.querySelector(href);
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
                     target.setAttribute('tabindex', '-1');
                     target.focus({ preventScroll: true });
                 }
@@ -127,11 +148,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // Scroll com requestAnimationFrame (evita trabalho redundante)
     let ticking = false;
 
+    const timeline = document.getElementById('timeline');
+    const timelineItems = timeline ? timeline.querySelectorAll('.timeline-item') : [];
+    const lapFill = document.getElementById('lap-fill');
+    const lapPct = document.getElementById('lap-pct');
+    const lapLabel = document.getElementById('lap-label');
+
     function onScroll() {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
         progressBar.style.width = progress + '%';
+
+        // Indicador de volta (lateral)
+        if (lapFill) {
+            lapFill.style.transform = `scaleY(${progress / 100})`;
+            lapPct.textContent = Math.round(progress) + '%';
+            lapLabel.textContent = progress >= 99.5 ? 'FINISH' : 'LAP 01/01';
+        }
+
+        // Timeline: linha preenche conforme a rolagem; setores acendem ao serem alcançados
+        if (timeline) {
+            const rect = timeline.getBoundingClientRect();
+            const head = window.innerHeight * 0.6 - rect.top;
+            const fill = Math.min(Math.max(head / rect.height, 0), 1);
+            timeline.style.setProperty('--fill', fill);
+            timelineItems.forEach(item => {
+                item.classList.toggle('passed', head >= item.offsetTop + 30);
+            });
+        }
 
         const scrolled = scrollTop > 100;
         navbar.classList.toggle('scrolled', scrolled);
@@ -146,6 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ticking = true;
         }
     }, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
 
     // Efeito de digitação (desativado se o usuário prefere movimento reduzido)
     const phrases = [

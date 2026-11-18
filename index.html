@@ -7,7 +7,7 @@
     <meta name="description" content="Portfólio de Gabriel Henrick — Engenharia da Computação UFU. Full Stack (Laravel, TypeScript), VR/XR (Unity, Meta SDK) e DevOps (Docker, Linux)." />
     <meta name="keywords" content="Gabriel Henrick, Full Stack, VR Developer, Laravel, TypeScript, Unity, Docker, DevOps, UFU" />
     <meta name="author" content="Gabriel Henrick" />
-    <meta name="theme-color" content="#0a0a0f" />
+    <meta name="theme-color" content="#0a0b0d" />
     <link rel="canonical" href="https://gabrielhenrick-deep.github.io/portifolio/" />
     <meta property="og:title" content="Gabriel Henrick | Full Stack & VR Developer" />
     <meta property="og:description" content="Engenharia da Computação UFU — do backend ao metaverso." />
@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="assets/icons/icone.ico" />
     <link rel="icon" type="image/png" href="assets/icons/icone.png" />
     <script type="importmap">
@@ -74,44 +74,49 @@
 
     <a href="#" class="back-to-top" id="backToTop" aria-label="Voltar ao topo">&uarr;</a>
 
+    <div class="lap-meter" aria-hidden="true">
+        <span class="lap-label" id="lap-label">LAP 01/01</span>
+        <span class="lap-track"><span class="lap-fill" id="lap-fill"></span></span>
+        <span class="lap-pct" id="lap-pct">0%</span>
+    </div>
+
     <section class="hero">
         <div class="container hero-content">
+            <div class="start-lights" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
             <div class="hero-badge">Full Stack & VR Developer</div>
-            <h1>Gabriel Henrick</h1>
+            <h1>Gabriel <span class="h1-outline">Henrick</span></h1>
+            <div class="helmet-stripe" aria-hidden="true"><span></span><span></span><span></span></div>
             <p class="hero-subtitle">
                 Engenharia da Computação | <span class="accent">UFU</span>
             </p>
-            <p class="hero-desc" aria-live="polite">
-                <span class="typing-text">Construindo pontes entre o físico e o digital</span><span class="cursor" aria-hidden="true">|</span>
+            <p class="hero-desc">
+                <span class="sr-only">Construindo pontes entre o físico e o digital. Full Stack &amp; VR/XR Developer.</span>
+                <span class="typing-text" aria-hidden="true">Construindo pontes entre o físico e o digital</span><span class="cursor" aria-hidden="true">|</span>
             </p>
             <div class="hero-actions">
-                <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-                <a href="#contact" class="btn btn-outline">Contato</a>
+                <a href="#projects" class="btn btn-primary"><span>Ver Projetos</span></a>
+                <a href="#contact" class="btn btn-outline"><span>Contato</span></a>
             </div>
             <div class="hero-tech">
                 <span>Laravel</span><span>TypeScript</span><span>Unity</span><span>Docker</span><span>Linux</span>
             </div>
         </div>
-        <a href="#about" class="scroll-hint" aria-label="Rolar para a seção Sobre">
-            <span class="scroll-hint-mouse" aria-hidden="true"><span class="scroll-hint-wheel"></span></span>
-            <span class="scroll-hint-text">scroll</span>
-        </a>
     </section>
 
     <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
             <div class="marquee-group">
-                <span>Laravel</span><span class="marquee-dot">&#10022;</span><span>TypeScript</span><span class="marquee-dot">&#10022;</span><span>React</span><span class="marquee-dot">&#10022;</span><span>PHP</span><span class="marquee-dot">&#10022;</span><span>MySQL</span><span class="marquee-dot">&#10022;</span><span>PostgreSQL</span><span class="marquee-dot">&#10022;</span><span>Unity</span><span class="marquee-dot">&#10022;</span><span>C#</span><span class="marquee-dot">&#10022;</span><span>Meta SDK</span><span class="marquee-dot">&#10022;</span><span>OpenXR</span><span class="marquee-dot">&#10022;</span><span>Docker</span><span class="marquee-dot">&#10022;</span><span>Linux</span><span class="marquee-dot">&#10022;</span><span>Nginx</span><span class="marquee-dot">&#10022;</span><span>AWS</span><span class="marquee-dot">&#10022;</span><span>CI/CD</span><span class="marquee-dot">&#10022;</span>
+                <span>Laravel</span><span class="marquee-dot">/</span><span>TypeScript</span><span class="marquee-dot">/</span><span>React</span><span class="marquee-dot">/</span><span>PHP</span><span class="marquee-dot">/</span><span>MySQL</span><span class="marquee-dot">/</span><span>PostgreSQL</span><span class="marquee-dot">/</span><span>Unity</span><span class="marquee-dot">/</span><span>C#</span><span class="marquee-dot">/</span><span>Meta SDK</span><span class="marquee-dot">/</span><span>OpenXR</span><span class="marquee-dot">/</span><span>Docker</span><span class="marquee-dot">/</span><span>Linux</span><span class="marquee-dot">/</span><span>Nginx</span><span class="marquee-dot">/</span><span>AWS</span><span class="marquee-dot">/</span><span>CI/CD</span><span class="marquee-dot">/</span>
             </div>
             <div class="marquee-group">
-                <span>Laravel</span><span class="marquee-dot">&#10022;</span><span>TypeScript</span><span class="marquee-dot">&#10022;</span><span>React</span><span class="marquee-dot">&#10022;</span><span>PHP</span><span class="marquee-dot">&#10022;</span><span>MySQL</span><span class="marquee-dot">&#10022;</span><span>PostgreSQL</span><span class="marquee-dot">&#10022;</span><span>Unity</span><span class="marquee-dot">&#10022;</span><span>C#</span><span class="marquee-dot">&#10022;</span><span>Meta SDK</span><span class="marquee-dot">&#10022;</span><span>OpenXR</span><span class="marquee-dot">&#10022;</span><span>Docker</span><span class="marquee-dot">&#10022;</span><span>Linux</span><span class="marquee-dot">&#10022;</span><span>Nginx</span><span class="marquee-dot">&#10022;</span><span>AWS</span><span class="marquee-dot">&#10022;</span><span>CI/CD</span><span class="marquee-dot">&#10022;</span>
+                <span>Laravel</span><span class="marquee-dot">/</span><span>TypeScript</span><span class="marquee-dot">/</span><span>React</span><span class="marquee-dot">/</span><span>PHP</span><span class="marquee-dot">/</span><span>MySQL</span><span class="marquee-dot">/</span><span>PostgreSQL</span><span class="marquee-dot">/</span><span>Unity</span><span class="marquee-dot">/</span><span>C#</span><span class="marquee-dot">/</span><span>Meta SDK</span><span class="marquee-dot">/</span><span>OpenXR</span><span class="marquee-dot">/</span><span>Docker</span><span class="marquee-dot">/</span><span>Linux</span><span class="marquee-dot">/</span><span>Nginx</span><span class="marquee-dot">/</span><span>AWS</span><span class="marquee-dot">/</span><span>CI/CD</span><span class="marquee-dot">/</span>
             </div>
         </div>
     </div>
 
     <section id="about" class="section">
         <div class="container">
-            <span class="section-label">// Sobre</span>
+            <span class="section-label"><b>01</b>Sobre</span>
             <h2 class="section-title">Quem sou</h2>
             <div class="about-content">
                 <div class="terminal">
@@ -139,21 +144,39 @@
                             <strong>Docker</strong>, servidores <strong>Linux</strong> e práticas de
                             <strong>DevOps</strong> para entregar aplicações escaláveis e resilientes.
                         </p>
-                        <p class="terminal-line"><span class="terminal-prompt">gabriel@ufu:~$</span> <span class="terminal-cursor" aria-hidden="true">&block;</span></p>
+                        <p class="terminal-line"><span class="terminal-prompt">gabriel@ufu:~$</span> neofetch</p>
+                        <dl class="neofetch">
+                            <div><dt>OS</dt><dd>Engenharia da Computação — UFU</dd></div>
+                            <div><dt>Uptime</dt><dd>2+ anos de código</dd></div>
+                            <div><dt>Stack</dt><dd>Laravel · TypeScript · Unity</dd></div>
+                            <div><dt>Infra</dt><dd>Docker · Linux · Nginx</dd></div>
+                            <div><dt>Projetos</dt><dd>4 no GitHub</dd></div>
+                            <div><dt>Café</dt><dd>&infin;</dd></div>
+                        </dl>
+                        <p class="terminal-line terminal-end"><span class="terminal-prompt">gabriel@ufu:~$</span> <span class="terminal-cursor" aria-hidden="true">&block;</span></p>
                     </div>
                 </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <span class="stat-number">Full Stack</span>
-                        <span class="stat-label">Laravel & TS</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">VR/XR</span>
-                        <span class="stat-label">Unity & Meta SDK</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">DevOps</span>
-                        <span class="stat-label">Docker & Linux</span>
+                <div class="about-side">
+                    <figure class="driver-card">
+                        <img src="assets/images/perfil.jpeg" alt="Foto de Gabriel Henrick sorrindo, de camisa polo preta" width="1024" height="1024" loading="lazy" decoding="async" />
+                        <figcaption>
+                            <span class="driver-name">Gabriel <b>Henrick</b></span>
+                            <span class="driver-meta">Uberlândia · BR</span>
+                        </figcaption>
+                    </figure>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">Full Stack</span>
+                            <span class="stat-label">Laravel & TS</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">VR/XR</span>
+                            <span class="stat-label">Unity & Meta SDK</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">DevOps</span>
+                            <span class="stat-label">Docker & Linux</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -162,11 +185,11 @@
 
     <section id="experience" class="section section-dark">
         <div class="container">
-            <span class="section-label">// Experiência</span>
+            <span class="section-label"><b>02</b>Experiência</span>
             <h2 class="section-title">Formação & Trajetória</h2>
-            <div class="timeline">
+            <div class="timeline" id="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
+                    <div class="timeline-marker" aria-hidden="true">S1</div>
                     <div class="timeline-content">
                         <span class="timeline-date">2023 — 2027</span>
                         <h3>Engenharia da Computação</h3>
@@ -174,7 +197,7 @@
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
+                    <div class="timeline-marker" aria-hidden="true">S2</div>
                     <div class="timeline-content">
                         <span class="timeline-date">2025 — Presente</span>
                         <h3>Pesquisador — GRVA UFU</h3>
@@ -182,7 +205,7 @@
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-marker"></div>
+                    <div class="timeline-marker" aria-hidden="true">S3</div>
                     <div class="timeline-content">
                         <span class="timeline-date">2024 — Presente</span>
                         <h3>Full Stack Developer</h3>
@@ -195,7 +218,7 @@
 
     <section id="skills" class="section">
         <div class="container">
-            <span class="section-label">// Skills</span>
+            <span class="section-label"><b>03</b>Skills</span>
             <h2 class="section-title">Tecnologias & Ferramentas</h2>
             <div class="skills-grid">
                 <div class="skill-category">
@@ -244,94 +267,56 @@
 
     <section id="projects" class="section section-dark">
         <div class="container">
-            <span class="section-label">// Projetos</span>
+            <span class="section-label"><b>04</b>Projetos</span>
             <h2 class="section-title">Trabalhos Recentes</h2>
-            <div class="retro-browser">
-                <div class="browser-titlebar" aria-hidden="true">
-                    <span class="browser-title">Gabriel Henrick — Projetos</span>
-                    <span class="browser-controls">
-                        <span class="browser-btn">_</span>
-                        <span class="browser-btn">&#9634;</span>
-                        <span class="browser-btn browser-close">&times;</span>
-                    </span>
-                </div>
-                <div class="browser-toolbar" aria-hidden="true">
-                    <span class="browser-nav">&larr;</span>
-                    <span class="browser-nav">&rarr;</span>
-                    <span class="browser-nav">&#8635;</span>
-                    <span class="browser-url">https://blog.gabriel.dev/arquivo/projetos.html</span>
-                </div>
-                <div class="browser-content">
-            <div class="blog-page">
-                <div class="blog-masthead">
-                    <span class="blog-name">O Blog do Gabriel</span>
-                    <span class="blog-tagline">projetos &amp; experimentos — arquivo 2024–2025</span>
-                </div>
-                <article class="blog-post">
-                    <p class="post-date"><time datetime="2025-08-14">quinta-feira, 14 de agosto de 2025</time></p>
-                    <h3 class="post-title">
-                        <a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" rel="noopener noreferrer">GRVA Site — Backend</a>
-                    </h3>
-                    <p class="post-body">API RESTful do site do Grupo de Realidade Virtual e Aumentada da UFU. Gerenciamento de conteúdo com Laravel.</p>
-                    <p class="post-meta">
-                        Postado por <strong>Gabriel</strong> às 14:32 ·
-                        Etiquetas: Laravel, PHP ·
-                        0 comentários ·
-                        <a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" rel="noopener noreferrer" class="post-source">Código-fonte &raquo;</a>
-                    </p>
+            <div class="grid-list">
+                <article class="grid-row">
+                    <span class="grid-pos" aria-hidden="true">P1</span>
+                    <div class="grid-main">
+                        <span class="grid-badge">2025 // Backend</span>
+                        <h3><a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" rel="noopener noreferrer">GRVA Site — Backend</a></h3>
+                        <p>API RESTful do site do Grupo de Realidade Virtual e Aumentada da UFU. Gerenciamento de conteúdo com Laravel.</p>
+                        <ul class="grid-tags" aria-label="Tecnologias"><li>Laravel</li><li>PHP</li></ul>
+                    </div>
+                    <a href="https://github.com/GabrielHenrick-deep/grva-site-backend" target="_blank" rel="noopener noreferrer" class="grid-link" aria-label="Código-fonte de GRVA Site — Backend">Código <span aria-hidden="true">&rarr;</span></a>
                 </article>
-                <article class="blog-post">
-                    <p class="post-date"><time datetime="2025-08-11">segunda-feira, 11 de agosto de 2025</time></p>
-                    <h3 class="post-title">
-                        <a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" rel="noopener noreferrer">GRVA Site — Frontend</a>
-                    </h3>
-                    <p class="post-body">Interface moderna e responsiva do GRVA UFU. Construída com TypeScript e React para o grupo de pesquisa.</p>
-                    <p class="post-meta">
-                        Postado por <strong>Gabriel</strong> às 09:15 ·
-                        Etiquetas: TypeScript, React ·
-                        0 comentários ·
-                        <a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" rel="noopener noreferrer" class="post-source">Código-fonte &raquo;</a>
-                    </p>
+                <article class="grid-row">
+                    <span class="grid-pos" aria-hidden="true">P2</span>
+                    <div class="grid-main">
+                        <span class="grid-badge">2025 // Frontend</span>
+                        <h3><a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" rel="noopener noreferrer">GRVA Site — Frontend</a></h3>
+                        <p>Interface moderna e responsiva do GRVA UFU. Construída com TypeScript e React para o grupo de pesquisa.</p>
+                        <ul class="grid-tags" aria-label="Tecnologias"><li>TypeScript</li><li>React</li></ul>
+                    </div>
+                    <a href="https://github.com/GabrielHenrick-deep/grva-site-frontend" target="_blank" rel="noopener noreferrer" class="grid-link" aria-label="Código-fonte de GRVA Site — Frontend">Código <span aria-hidden="true">&rarr;</span></a>
                 </article>
-                <article class="blog-post">
-                    <p class="post-date"><time datetime="2025-04-23">quarta-feira, 23 de abril de 2025</time></p>
-                    <h3 class="post-title">
-                        <a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" rel="noopener noreferrer">ParkingAI</a>
-                    </h3>
-                    <p class="post-body">Sistema inteligente de estacionamento com visão computacional e machine learning para detecção e gerenciamento de vagas.</p>
-                    <p class="post-meta">
-                        Postado por <strong>Gabriel</strong> às 22:47 ·
-                        Etiquetas: Java, AI ·
-                        0 comentários ·
-                        <a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" rel="noopener noreferrer" class="post-source">Código-fonte &raquo;</a>
-                    </p>
+                <article class="grid-row">
+                    <span class="grid-pos" aria-hidden="true">P3</span>
+                    <div class="grid-main">
+                        <span class="grid-badge">2025 // Visão computacional</span>
+                        <h3><a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" rel="noopener noreferrer">ParkingAI</a></h3>
+                        <p>Sistema inteligente de estacionamento com visão computacional e machine learning para detecção e gerenciamento de vagas.</p>
+                        <ul class="grid-tags" aria-label="Tecnologias"><li>Java</li><li>AI</li></ul>
+                    </div>
+                    <a href="https://github.com/GabrielHenrick-deep/ParkingAI" target="_blank" rel="noopener noreferrer" class="grid-link" aria-label="Código-fonte de ParkingAI">Código <span aria-hidden="true">&rarr;</span></a>
                 </article>
-                <article class="blog-post">
-                    <p class="post-date"><time datetime="2025-03-08">sábado, 8 de março de 2025</time></p>
-                    <h3 class="post-title">
-                        <a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" rel="noopener noreferrer">HackatonUFU</a>
-                    </h3>
-                    <p class="post-body">Aplicação web desenvolvida durante hackathon na UFU. Solução de desafio acadêmico com TypeScript.</p>
-                    <p class="post-meta">
-                        Postado por <strong>Gabriel</strong> às 18:05 ·
-                        Etiquetas: TypeScript, React ·
-                        0 comentários ·
-                        <a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" rel="noopener noreferrer" class="post-source">Código-fonte &raquo;</a>
-                    </p>
+                <article class="grid-row">
+                    <span class="grid-pos" aria-hidden="true">P4</span>
+                    <div class="grid-main">
+                        <span class="grid-badge">2025 // Hackathon</span>
+                        <h3><a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" rel="noopener noreferrer">HackatonUFU</a></h3>
+                        <p>Aplicação web desenvolvida durante hackathon na UFU. Solução de desafio acadêmico com TypeScript.</p>
+                        <ul class="grid-tags" aria-label="Tecnologias"><li>TypeScript</li><li>React</li></ul>
+                    </div>
+                    <a href="https://github.com/GabrielHenrick-deep/HackatonUFU" target="_blank" rel="noopener noreferrer" class="grid-link" aria-label="Código-fonte de HackatonUFU">Código <span aria-hidden="true">&rarr;</span></a>
                 </article>
-            </div>
-                </div>
-                <div class="browser-statusbar" aria-hidden="true">
-                    <span>Exibindo 4 posts</span>
-                    <span class="browser-status-right">Feito &#9829; localmente</span>
-                </div>
             </div>
         </div>
     </section>
 
     <section id="contact" class="section">
         <div class="container">
-            <span class="section-label">// Contato</span>
+            <span class="section-label"><b>05</b>Contato</span>
             <h2 class="section-title">Vamos conversar</h2>
             <p class="contact-desc">
                 Tem um projeto em mente? Quer discutir VR, DevOps ou trocar uma ideia?
@@ -357,7 +342,7 @@
     <footer class="footer">
         <div class="container footer-content">
             <p>&copy; <span id="current-year">2026</span> Gabriel Henrick. Feito com &#9829; e c&oacute;digo.</p>
-            <p class="footer-quote">construindo pontes entre o físico e o digital</p>
+            <p class="footer-quote">“Se você não vai mais em busca de um espaço que existe, você não é mais um piloto de corrida.” — Ayrton Senna</p>
         </div>
     </footer>
 

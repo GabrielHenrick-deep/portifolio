@@ -36,7 +36,7 @@
     }
     </script>
     <script>document.documentElement.classList.add('js');</script>
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=20261123" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Titillium+Web:ital,wght@0,400;0,600;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet" />
@@ -76,8 +76,21 @@
 
     <div class="lap-meter" aria-hidden="true">
         <span class="lap-label" id="lap-label">LAP 01/01</span>
-        <span class="lap-track"><span class="lap-fill" id="lap-fill"></span></span>
+        <!-- Traçado de Interlagos: desenhado conforme a rolagem -->
+        <svg class="lap-map" viewBox="0 0 125 188">
+            <defs>
+                <linearGradient id="lap-grad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffc400" />
+                    <stop offset="1" stop-color="#ff6a1a" />
+                </linearGradient>
+            </defs>
+            <path class="lap-ghost" d="M18.5 131.8C19.1 134.4 19.8 136.8 20.5 139.4C21.2 142.0 21.8 144.6 22.5 147.1C23.2 149.7 23.8 152.2 24.5 154.7C25.2 157.2 25.8 159.8 26.5 162.4C27.2 165.0 27.6 167.6 28.5 170.1C29.3 172.6 30.0 175.6 31.6 177.3C33.2 179.0 36.0 180.8 38.1 180.5C40.2 180.2 42.2 177.2 44.3 175.8C46.4 174.4 48.5 172.3 50.8 172.3C53.0 172.3 55.4 175.0 57.8 176.0C60.2 177.0 62.7 177.9 65.3 178.2C67.9 178.5 70.7 178.4 73.2 177.9C75.7 177.4 78.3 176.4 80.5 175.1C82.7 173.8 84.8 171.9 86.5 169.9C88.2 167.9 89.4 165.6 90.5 163.2C91.6 160.8 92.2 158.2 93.0 155.7C93.8 153.2 94.6 150.6 95.3 148.1C96.0 145.6 96.7 143.1 97.4 140.5C98.1 137.9 98.7 135.4 99.3 132.8C99.9 130.2 100.7 127.7 101.3 125.1C102.0 122.6 102.6 120.0 103.2 117.5C103.8 115.0 104.5 112.4 105.1 109.8C105.8 107.2 106.4 104.7 107.1 102.1C107.8 99.6 108.5 97.1 109.2 94.5C109.9 92.0 110.5 89.3 111.2 86.8C111.9 84.2 112.5 81.8 113.2 79.2C113.9 76.7 114.5 74.0 115.2 71.5C115.9 69.0 117.0 66.4 117.3 63.9C117.6 61.4 118.0 58.1 116.8 56.3C115.6 54.5 112.4 53.7 110.0 52.9C107.6 52.1 104.8 51.7 102.2 51.3C99.6 50.9 97.0 50.4 94.4 50.6C91.8 50.8 89.1 51.6 86.8 52.7C84.5 53.9 82.5 55.7 80.6 57.5C78.7 59.3 77.2 61.5 75.6 63.6C74.0 65.7 72.5 67.9 70.9 70.0C69.3 72.1 67.8 74.2 66.2 76.3C64.7 78.4 63.1 80.7 61.6 82.8C60.1 85.0 58.6 87.1 57.1 89.2C55.6 91.3 53.9 93.4 52.3 95.5C50.7 97.6 49.4 100.1 47.6 101.9C45.8 103.7 43.6 105.6 41.3 106.4C38.9 107.2 36.0 107.0 33.5 106.5C31.0 106.0 28.2 105.1 26.2 103.6C24.2 102.1 22.5 99.9 21.4 97.6C20.3 95.3 20.0 92.5 19.5 89.9C19.0 87.3 18.4 84.7 18.2 82.1C18.0 79.5 17.3 75.8 18.5 74.3C19.7 72.8 23.2 72.5 25.5 73.0C27.8 73.5 29.8 76.8 32.1 77.2C34.4 77.6 37.8 76.8 39.3 75.2C40.8 73.6 41.6 70.1 41.1 67.8C40.6 65.5 38.0 63.6 36.3 61.6C34.6 59.6 32.3 58.0 30.7 56.0C29.1 54.0 27.7 51.7 26.7 49.3C25.7 46.9 25.0 44.1 24.9 41.6C24.8 39.1 24.8 35.0 26.1 34.2C27.4 33.4 30.7 35.5 32.7 36.9C34.7 38.3 36.2 40.9 38.0 42.8C39.8 44.7 41.4 47.1 43.5 48.5C45.6 49.9 48.2 51.0 50.7 51.4C53.2 51.8 56.1 51.6 58.5 50.9C60.9 50.1 63.4 48.6 65.3 46.9C67.2 45.2 68.4 42.7 69.9 40.5C71.4 38.3 72.7 36.0 74.1 33.8C75.5 31.5 76.8 29.2 78.2 27.0C79.6 24.8 82.1 22.5 82.4 20.3C82.7 18.1 81.8 15.3 80.2 13.7C78.6 12.1 75.3 11.6 72.8 10.7C70.3 9.7 67.9 8.4 65.4 8.0C62.9 7.6 60.2 7.7 57.6 8.0C55.0 8.3 52.3 9.0 49.8 9.6C47.2 10.2 44.8 11.0 42.3 11.9C39.8 12.8 37.4 13.9 35.1 15.1C32.7 16.3 30.3 17.5 28.2 19.1C26.1 20.7 24.1 22.4 22.5 24.5C20.9 26.6 19.8 29.1 18.8 31.5C17.8 33.9 17.3 36.5 16.6 39.1C15.9 41.7 15.3 44.2 14.8 46.8C14.3 49.4 14.0 52.0 13.4 54.6C12.8 57.2 12.1 59.6 11.5 62.2C10.9 64.8 10.3 67.3 9.7 69.9C9.1 72.5 8.3 75.0 8.0 77.6C7.7 80.2 7.8 82.9 8.0 85.5C8.2 88.1 8.7 90.7 9.2 93.3C9.7 95.9 10.5 98.4 11.1 101.0C11.7 103.6 12.3 106.1 12.9 108.7C13.5 111.3 14.2 113.8 14.8 116.4C15.4 119.0 16.0 121.5 16.6 124.1C17.2 126.7 17.9 129.2 18.5 131.8" />
+            <path class="lap-draw" id="lap-draw" pathLength="1" d="M18.5 131.8C19.1 134.4 19.8 136.8 20.5 139.4C21.2 142.0 21.8 144.6 22.5 147.1C23.2 149.7 23.8 152.2 24.5 154.7C25.2 157.2 25.8 159.8 26.5 162.4C27.2 165.0 27.6 167.6 28.5 170.1C29.3 172.6 30.0 175.6 31.6 177.3C33.2 179.0 36.0 180.8 38.1 180.5C40.2 180.2 42.2 177.2 44.3 175.8C46.4 174.4 48.5 172.3 50.8 172.3C53.0 172.3 55.4 175.0 57.8 176.0C60.2 177.0 62.7 177.9 65.3 178.2C67.9 178.5 70.7 178.4 73.2 177.9C75.7 177.4 78.3 176.4 80.5 175.1C82.7 173.8 84.8 171.9 86.5 169.9C88.2 167.9 89.4 165.6 90.5 163.2C91.6 160.8 92.2 158.2 93.0 155.7C93.8 153.2 94.6 150.6 95.3 148.1C96.0 145.6 96.7 143.1 97.4 140.5C98.1 137.9 98.7 135.4 99.3 132.8C99.9 130.2 100.7 127.7 101.3 125.1C102.0 122.6 102.6 120.0 103.2 117.5C103.8 115.0 104.5 112.4 105.1 109.8C105.8 107.2 106.4 104.7 107.1 102.1C107.8 99.6 108.5 97.1 109.2 94.5C109.9 92.0 110.5 89.3 111.2 86.8C111.9 84.2 112.5 81.8 113.2 79.2C113.9 76.7 114.5 74.0 115.2 71.5C115.9 69.0 117.0 66.4 117.3 63.9C117.6 61.4 118.0 58.1 116.8 56.3C115.6 54.5 112.4 53.7 110.0 52.9C107.6 52.1 104.8 51.7 102.2 51.3C99.6 50.9 97.0 50.4 94.4 50.6C91.8 50.8 89.1 51.6 86.8 52.7C84.5 53.9 82.5 55.7 80.6 57.5C78.7 59.3 77.2 61.5 75.6 63.6C74.0 65.7 72.5 67.9 70.9 70.0C69.3 72.1 67.8 74.2 66.2 76.3C64.7 78.4 63.1 80.7 61.6 82.8C60.1 85.0 58.6 87.1 57.1 89.2C55.6 91.3 53.9 93.4 52.3 95.5C50.7 97.6 49.4 100.1 47.6 101.9C45.8 103.7 43.6 105.6 41.3 106.4C38.9 107.2 36.0 107.0 33.5 106.5C31.0 106.0 28.2 105.1 26.2 103.6C24.2 102.1 22.5 99.9 21.4 97.6C20.3 95.3 20.0 92.5 19.5 89.9C19.0 87.3 18.4 84.7 18.2 82.1C18.0 79.5 17.3 75.8 18.5 74.3C19.7 72.8 23.2 72.5 25.5 73.0C27.8 73.5 29.8 76.8 32.1 77.2C34.4 77.6 37.8 76.8 39.3 75.2C40.8 73.6 41.6 70.1 41.1 67.8C40.6 65.5 38.0 63.6 36.3 61.6C34.6 59.6 32.3 58.0 30.7 56.0C29.1 54.0 27.7 51.7 26.7 49.3C25.7 46.9 25.0 44.1 24.9 41.6C24.8 39.1 24.8 35.0 26.1 34.2C27.4 33.4 30.7 35.5 32.7 36.9C34.7 38.3 36.2 40.9 38.0 42.8C39.8 44.7 41.4 47.1 43.5 48.5C45.6 49.9 48.2 51.0 50.7 51.4C53.2 51.8 56.1 51.6 58.5 50.9C60.9 50.1 63.4 48.6 65.3 46.9C67.2 45.2 68.4 42.7 69.9 40.5C71.4 38.3 72.7 36.0 74.1 33.8C75.5 31.5 76.8 29.2 78.2 27.0C79.6 24.8 82.1 22.5 82.4 20.3C82.7 18.1 81.8 15.3 80.2 13.7C78.6 12.1 75.3 11.6 72.8 10.7C70.3 9.7 67.9 8.4 65.4 8.0C62.9 7.6 60.2 7.7 57.6 8.0C55.0 8.3 52.3 9.0 49.8 9.6C47.2 10.2 44.8 11.0 42.3 11.9C39.8 12.8 37.4 13.9 35.1 15.1C32.7 16.3 30.3 17.5 28.2 19.1C26.1 20.7 24.1 22.4 22.5 24.5C20.9 26.6 19.8 29.1 18.8 31.5C17.8 33.9 17.3 36.5 16.6 39.1C15.9 41.7 15.3 44.2 14.8 46.8C14.3 49.4 14.0 52.0 13.4 54.6C12.8 57.2 12.1 59.6 11.5 62.2C10.9 64.8 10.3 67.3 9.7 69.9C9.1 72.5 8.3 75.0 8.0 77.6C7.7 80.2 7.8 82.9 8.0 85.5C8.2 88.1 8.7 90.7 9.2 93.3C9.7 95.9 10.5 98.4 11.1 101.0C11.7 103.6 12.3 106.1 12.9 108.7C13.5 111.3 14.2 113.8 14.8 116.4C15.4 119.0 16.0 121.5 16.6 124.1C17.2 126.7 17.9 129.2 18.5 131.8" />
+            <circle class="lap-start" cx="18.5" cy="131.8" r="5" />
+            <circle class="lap-head" id="lap-head" cx="18.5" cy="131.8" r="4.5" />
+        </svg>
         <span class="lap-pct" id="lap-pct">0%</span>
+        <span class="lap-name">Interlagos</span>
     </div>
 
     <section class="hero">
@@ -100,6 +113,15 @@
             <div class="hero-tech">
                 <span>Laravel</span><span>TypeScript</span><span>Unity</span><span>Docker</span><span>Linux</span>
             </div>
+        </div>
+        <div class="car-controls" role="group" aria-label="Controles de inspeção do carro 3D">
+            <span class="car-controls-title">Inspeção</span>
+            <button type="button" data-car-cmd="wire" aria-pressed="false">Wireframe</button>
+            <button type="button" data-car-cmd="explode" aria-pressed="false">Exploded</button>
+            <button type="button" data-car-cmd="drs" aria-pressed="false">DRS</button>
+            <button type="button" data-car-cmd="wind" aria-pressed="false">Túnel de vento</button>
+            <button type="button" data-car-cmd="heat" aria-pressed="false">Heatmap</button>
+            <span class="car-controls-hint">Arraste para girar</span>
         </div>
     </section>
 
@@ -153,7 +175,19 @@
                             <div><dt>Projetos</dt><dd>4 no GitHub</dd></div>
                             <div><dt>Café</dt><dd>&infin;</dd></div>
                         </dl>
-                        <p class="terminal-line terminal-end"><span class="terminal-prompt">gabriel@ufu:~$</span> <span class="terminal-cursor" aria-hidden="true">&block;</span></p>
+                        <div class="term-console terminal-end">
+                            <div class="term-log" id="term-log" aria-live="polite"></div>
+                            <div class="term-chips">
+                                <button type="button" data-term="help">help</button>
+                                <button type="button" data-term="drs --open">drs --open</button>
+                                <button type="button" data-term="telemetry --heatmap">telemetry --heatmap</button>
+                                <button type="button" data-term="camera --top">camera --top</button>
+                            </div>
+                            <form class="term-input" id="term-form" autocomplete="off">
+                                <label class="terminal-prompt" for="term-cmd">gabriel@ufu:~$</label>
+                                <input id="term-cmd" type="text" spellcheck="false" autocapitalize="off" placeholder="digite help" aria-label="Comando do terminal" />
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="about-side">
@@ -335,6 +369,11 @@
                     <span class="contact-icon">@</span>
                     <span>Email</span>
                 </a>
+                <button type="button" class="contact-card contact-copy" data-copy="gabrielhrsdev@gmail.com">
+                    <span class="contact-icon" aria-hidden="true">&#x2398;</span>
+                    <span class="copy-label">Copiar e-mail</span>
+                </button>
+                <span class="sr-only" id="copy-status" aria-live="polite"></span>
             </div>
         </div>
     </section>
@@ -346,7 +385,7 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
-    <script type="module" src="js/scene.js"></script>
+    <script src="js/script.js?v=20261123"></script>
+    <script type="module" src="js/scene.js?v=20261123"></script>
 </body>
 </html>

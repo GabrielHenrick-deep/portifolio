@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { createCarStage } from './car.js';
+import { createCarStage } from './car.js?v=20261123';
 
 /*
  * Cena: Autódromo José Carlos Pace (Interlagos) à noite.
@@ -568,6 +568,7 @@ function updateCamera(t) {
 /* ------------------------------ Carro de F1 ------------------------------- */
 
 const stage = createCarStage(renderer, RoomEnvironment);
+window.__carReady = true;
 const WHEEL_RADIUS = 0.36;
 const drive = { x: 0, y: 0, yaw: -0.62, wobble: 1, spin: 0 };
 let driveReady = false;
@@ -590,7 +591,11 @@ function layoutStage() {
 layoutStage();
 
 // O carro atravessa a tela da direita para a esquerda ao longo da página
+let lastStageTime = 0;
+
 function updateStage(t, instant = false) {
+    const dt = instant ? 1 / 60 : Math.min(Math.max(t - lastStageTime, 0), 0.05);
+    lastStageTime = t;
     const cam = stage.camera;
     const halfW = cam.position.z * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * cam.aspect;
     const wide = container.clientWidth >= 960;
@@ -611,7 +616,51 @@ function updateStage(t, instant = false) {
     // Rodas giram conforme a distância percorrida (rolamento sem deslizar)
     drive.spin = (startX - drive.x) / WHEEL_RADIUS;
 
-    stage.update(t, mouse, drive);
+    stage.update(t, mouse, drive, dt, instant);
+}
+
+/* --------------------- Comandos do HUD / terminal ------------------------ */
+
+// Outros scripts disparam: window.dispatchEvent(new CustomEvent('car:command', { detail: { cmd, value } }))
+window.addEventListener('car:command', (e) => {
+    const { cmd, value } = e.detail || {};
+    const state = stage.command(cmd, value);
+    if (!state) return;
+    window.dispatchEvent(new CustomEvent('car:state', { detail: state }));
+    if (reducedMotion) {
+        updateStage(0, true);
+        render();
+    }
+});
+
+// Arrastar no hero gira o carro; ao soltar ele volta suavemente à pose base
+const hero = document.querySelector('.hero');
+if (hero) {
+    let last = null;
+    hero.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse' || e.button !== 0 || e.target.closest('a, button, input')) return;
+        last = { x: e.clientX, y: e.clientY };
+        stage.drag.active = true;
+        hero.classList.add('is-dragging');
+        hero.setPointerCapture(e.pointerId);
+    });
+    hero.addEventListener('pointermove', (e) => {
+        if (!last) return;
+        stage.drag.yaw = Math.max(-1.4, Math.min(1.4, stage.drag.yaw + (e.clientX - last.x) * 0.008));
+        stage.drag.pitch = Math.max(-0.35, Math.min(0.5, stage.drag.pitch + (e.clientY - last.y) * 0.005));
+        last = { x: e.clientX, y: e.clientY };
+        if (reducedMotion) {
+            updateStage(0, true);
+            render();
+        }
+    });
+    const release = () => {
+        last = null;
+        stage.drag.active = false;
+        hero.classList.remove('is-dragging');
+    };
+    hero.addEventListener('pointerup', release);
+    hero.addEventListener('pointercancel', release);
 }
 
 function render() {

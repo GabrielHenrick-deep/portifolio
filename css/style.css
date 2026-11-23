@@ -9,7 +9,7 @@
     --bg: #0a0b0d;
     --bg-primary: rgba(10, 11, 13, 0.92);
     --bg-secondary: rgba(14, 15, 18, 0.72);
-    --bg-card: rgba(20, 22, 27, 0.62);
+    --bg-card: rgba(12, 13, 16, 0.8);
     --bg-card-solid: #14161b;
     --text-primary: #eceef1;
     --text-secondary: #9aa1ab;
@@ -556,6 +556,94 @@ body.no-webgl {
     color: var(--text-primary);
 }
 
+/* ====================== Controles de inspeção (hero) ==================== */
+
+.hero.is-dragging {
+    user-select: none;
+}
+
+.car-controls {
+    position: absolute;
+    right: max(24px, calc((100vw - 1100px) / 2 + 24px));
+    bottom: 36px;
+    z-index: 3;
+    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    max-width: 460px;
+    font-family: var(--font-mono);
+}
+
+.car-controls-title,
+.car-controls-hint {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.car-controls-title {
+    margin-right: 4px;
+    color: var(--accent);
+}
+
+.car-controls-hint {
+    flex-basis: 100%;
+    text-align: right;
+    opacity: 0.7;
+}
+
+.car-controls button {
+    padding: 6px 10px;
+    background: rgba(10, 11, 13, 0.78);
+    border: 1px solid var(--border-strong);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.car-controls button::before {
+    content: '[ ';
+    color: var(--border-strong);
+}
+
+.car-controls button::after {
+    content: ' ]';
+    color: var(--border-strong);
+}
+
+.car-controls button:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+}
+
+.car-controls button[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0b0d;
+}
+
+.car-controls button[aria-pressed="true"]::before,
+.car-controls button[aria-pressed="true"]::after {
+    color: #0a0b0d;
+}
+
+@media (min-width: 960px) {
+    .car-controls {
+        display: flex;
+    }
+}
+
+body.no-webgl .car-controls {
+    display: none;
+}
+
 /* ========================= HUD (indicador de volta) ===================== */
 
 .lap-meter {
@@ -573,30 +661,58 @@ body.no-webgl {
     top: 50%;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-size: 0.62rem;
     transform: translateY(-50%);
 }
 
-.lap-label {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+.lap-label,
+.lap-name {
+    font-size: 0.58rem;
 }
 
-.lap-track {
-    position: relative;
-    width: 2px;
-    height: 140px;
-    overflow: hidden;
-    background: var(--border-strong);
+.lap-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-secondary);
 }
 
-.lap-fill {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, var(--accent), var(--accent-2));
-    transform-origin: top;
-    transform: scaleY(0);
+.lap-map {
+    width: 72px;
+    height: auto;
+    overflow: visible;
+}
+
+.lap-ghost,
+.lap-draw {
+    fill: none;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.lap-ghost {
+    stroke: var(--border-strong);
+}
+
+.lap-draw {
+    stroke: url(#lap-grad);
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    filter: drop-shadow(0 0 3px rgba(255, 196, 0, 0.55));
+}
+
+/* Linha de largada */
+.lap-start {
+    fill: var(--bg);
+    stroke: var(--text-secondary);
+    stroke-width: 2;
+}
+
+.lap-head {
+    fill: #fff;
+    filter: drop-shadow(0 0 4px rgba(255, 196, 0, 0.9));
 }
 
 .lap-pct {
@@ -729,6 +845,87 @@ body.no-webgl {
 .terminal-end {
     margin-top: auto;
     margin-bottom: 0 !important;
+}
+
+/* Console interativo */
+.term-console {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.term-log {
+    max-height: 11.5em;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.term-log:empty {
+    display: none;
+}
+
+.term-line {
+    margin: 0 !important;
+    line-height: 1.6 !important;
+    white-space: pre-wrap;
+}
+
+.term-cmd {
+    color: var(--text-primary) !important;
+}
+
+.term-out {
+    color: var(--text-secondary);
+}
+
+.term-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.term-chips button {
+    padding: 3px 9px;
+    background: rgba(255, 196, 0, 0.06);
+    border: 1px solid var(--border-strong);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.term-chips button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.term-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.term-input input {
+    flex: 1;
+    min-width: 0;
+    padding: 2px 0;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px dashed var(--border-strong);
+    font: inherit;
+    color: var(--text-primary);
+    caret-color: var(--accent);
+}
+
+.term-input input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+}
+
+.term-input input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
 }
 
 /* Saída do neofetch */
@@ -1147,12 +1344,13 @@ html:not(.js) .timeline-marker {
     pointer-events: none;
     opacity: 0;
     background-image:
+        radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.07), transparent 45%),
         linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%),
         repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0 2px, transparent 2px 4px),
         repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.3) 0 2px, transparent 2px 4px);
-    background-size: 35% 100%, auto, auto;
-    background-repeat: no-repeat, repeat, repeat;
-    background-position: -100% 0, 0 0, 0 0;
+    background-size: 100% 100%, 35% 100%, auto, auto;
+    background-repeat: no-repeat, no-repeat, repeat, repeat;
+    background-position: 0 0, -100% 0, 0 0, 0 0;
     transition: opacity 0.3s;
 }
 
@@ -1162,8 +1360,8 @@ html:not(.js) .timeline-marker {
 }
 
 @keyframes grid-scan {
-    from { background-position: -100% 0, 0 0, 0 0; }
-    to { background-position: 200% 0, 0 0, 0 0; }
+    from { background-position: 0 0, -100% 0, 0 0, 0 0; }
+    to { background-position: 0 0, 200% 0, 0 0, 0 0; }
 }
 
 .grid-badge {
@@ -1266,6 +1464,11 @@ html:not(.js) .timeline-marker {
     color: #0a0b0d;
 }
 
+/* Indicadores dos carrosséis (só no mobile) */
+.carousel-dots {
+    display: none;
+}
+
 /* =============================== Contato =============================== */
 
 .contact-desc {
@@ -1315,6 +1518,20 @@ html:not(.js) .timeline-marker {
     color: var(--accent);
     transform: skewX(var(--skew));
     transition: background 0.2s, color 0.2s;
+}
+
+button.contact-card {
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.contact-copy.copied {
+    border-color: var(--sector-green);
+}
+
+.contact-copy.copied .contact-icon {
+    background: var(--sector-green);
+    color: #0a0b0d;
 }
 
 .contact-card:hover .contact-icon {
@@ -1505,6 +1722,11 @@ html.js .contact-card.reveal.visible:hover {
         margin-left: 0;
     }
 
+    /* Subtítulo mais estreito para não encostar na asa dianteira */
+    .hero-desc {
+        max-width: 460px;
+    }
+
     .hero::before {
         background: radial-gradient(ellipse 45% 60% at 22% 50%, rgba(10, 11, 13, 0.75), transparent 75%);
     }
@@ -1571,15 +1793,89 @@ html.js .contact-card.reveal.visible:hover {
         margin-bottom: 8px;
     }
 
+    /* Projetos e skills viram carrossel com scroll-snap */
+    .grid-list,
+    .skills-grid {
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+        margin: 0 -24px;
+        padding: 4px 24px 8px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 24px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .skills-grid > .skill-category {
+        flex: 0 0 78%;
+        scroll-snap-align: center;
+    }
+
+    html.js .skill-category.reveal.visible:hover,
+    .skill-category:hover {
+        transform: none;
+    }
+
+    .grid-list::-webkit-scrollbar,
+    .skills-grid::-webkit-scrollbar {
+        display: none;
+    }
+
     .grid-row {
-        grid-template-columns: 48px 1fr;
-        gap: 16px;
-        padding-right: 18px;
+        flex: 0 0 86%;
+        grid-template-columns: 1fr;
+        align-content: start;
+        gap: 14px;
+        padding: 20px 20px 20px 24px;
+        scroll-snap-align: center;
+    }
+
+    html.js .grid-row.reveal,
+    html.js .grid-row.reveal.visible,
+    html.js .grid-row.reveal.visible:hover,
+    .grid-row:hover {
+        transform: none;
+    }
+
+    .grid-pos {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        font-size: 1.3rem;
+    }
+
+    .grid-main h3 {
+        padding-right: 44px;
     }
 
     .grid-link {
-        grid-column: 2;
         justify-self: start;
+        align-self: end;
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 18px;
+    }
+
+    .carousel-dots button {
+        width: 18px;
+        height: 4px;
+        padding: 0;
+        border: 0;
+        background: var(--border-strong);
+        transform: skewX(var(--skew));
+        transition: width 0.25s, background 0.25s;
+    }
+
+    .carousel-dots button.active {
+        width: 34px;
+        background: var(--accent);
     }
 
     .back-to-top {
